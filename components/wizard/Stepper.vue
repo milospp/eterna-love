@@ -14,6 +14,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { onBeforeMount } from 'vue';
 import WizardStep1Layout from './Step1Layout.vue';
 import WizardStep2Design from './Step2Design.vue';
 const router = useRouter();
@@ -71,12 +72,14 @@ function onStepParamChanged(newStep: string) {
     }
 }
 
-function onBeforeMount() {
+
+onBeforeMount(() => {
     const step = router.currentRoute.value.query.step;
     if (step) {
         onStepParamChanged(step as string);
     }
-}
+})
+
 
 watch(
     () => router.currentRoute.value.query.step,

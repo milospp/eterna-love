@@ -11,6 +11,5 @@
 
         <LandingFeatures />
         <LandingFaq />
-        <LandingFooter />
     </div>
 </template>
