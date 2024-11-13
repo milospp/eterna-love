@@ -1,12 +1,13 @@
 <template>
-    <button class="group py-2 px-4 rounded-full flex items-center text-sm hover:bg-blue-200"
-        :class="[active ? 'bg-blue-300' : '']">
-        <span
-            class="index w-6 h-6 block rounded-full text-center leading-6 group-hover:bg-blue-800 group-hover:text-gray-100"
-            :class="[active ? 'bg-blue-900 text-white' : 'bg-white text-black']">{{
+    <button class="group py-2 sm:px-4 px-3 rounded-full flex items-center text-sm"
+        :class="[active ? 'bg-blue-300 hover:bg-blue-200' : 'hover:bg-blue-200 hover:bg-opacity-30', enabled ? '' : 'text-slate-500 pointer-events-none']">
+        <span class="index w-6 h-6 block rounded-full text-center leading-6"
+            :class="[active ? 'bg-blue-900 text-white' : (enabled ? 'bg-white text-black' : 'bg-gray-300 text-gray-500')]">{{
                 index
             }}</span>
-        <span class="pl-3 hidden sm:block"><slot /></span>
+        <span class="pl-3 hidden sm:block">
+            <slot />
+        </span>
     </button>
 </template>
 
@@ -20,7 +21,12 @@ defineProps({
     active: {
         type: Boolean,
         default: false
+    },
+    enabled: {
+        type: Boolean,
+        default: false
     }
+
 });
 </script>
 

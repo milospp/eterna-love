@@ -99,30 +99,43 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-html,
-body {
-    font-family: "Dongle", sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
 :root {
-    --color-bg1: #87cefa;
+    // Iva
+    --color-bg1: #A7C6EC;
     /* Light blue */
-    --color-bg2: #87cefa;
+    --color-bg2: #D5C2E1;
     /* Light sky blue */
-    --color1: 255, 182, 193;
+    --color1: 255, 195, 160;
     /* Light pink */
-    --color2: 255, 160, 122;
+    --color2: 179, 229, 252;
     /* Light salmon */
-    --color3: 144, 238, 144;
+    --color3: 230, 122, 194;
     /* Light green */
-    --color4: 173, 216, 230;
+    --color4: 255, 228, 182;
     /* Light blue */
-    --color5: 221, 160, 221;
+    --color5: 195, 230, 203;
     /* Plum */
-    --color-interactive: 240, 128, 128;
+    --color-interactive: 254, 234, 0;
     /* Light coral */
+
+
+    // Boring
+    // --color-bg1: #87cefa;
+    // /* Light blue */
+    // --color-bg2: #87cefa;
+    // /* Light sky blue */
+    // --color1: 255, 182, 193;
+    // /* Light pink */
+    // --color2: 255, 160, 122;
+    // /* Light salmon */
+    // --color3: 144, 238, 144;
+    // /* Light green */
+    // --color4: 173, 216, 230;
+    // /* Light blue */
+    // --color5: 221, 160, 221;
+    // /* Plum */
+    // --color-interactive: 240, 128, 128;
+    // /* Light coral */
 
     // --color-bg2: rgb(96 129 255);
     // --color1: 234, 224, 143;

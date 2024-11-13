@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="flex flex-col">
         <CoreNavbar class="red" />
-        <WizardStepper />
+        <WizardStepperMain class="flex-1" />
     </div>
 </template>
 

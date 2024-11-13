@@ -1,6 +1,6 @@
 <template>
     <CoreNavbar class="red" />
-    <WizardStepper />
+    <WizardStepperStepper />
     <h1>{{ currentStep }}</h1>
 </template>
 

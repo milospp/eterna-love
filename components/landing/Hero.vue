@@ -28,15 +28,24 @@
         </div>
     </div>
 
-    <svg data-v-6da3ec0c="" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 70"
-        preserveAspectRatio="none" class="" style="width: 100%; height: 80px;">
-        <path data-v-6da3ec0c="" d="
-          M900.66,70          C906.67,72,823.78,31,743.84,14.19
-          c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35
-          V70
-          H900
-          Z" class="shape-fill" style="fill: #F5F5F5;"></path>
+
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 70" preserveAspectRatio="none" class=""
+        style="width: 100%; height: 80px;">
+        <path d="
+        M900.66,70          C906.67,72,823.78,31,743.84,14.19
+        c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35
+        V70
+        H900
+        Z" class="shape-fill" style="fill: #F5F5F5;"></path>
+
     </svg>
+
+    <!-- Bugfix phantom spill line -->
+    <div class="bg-red-200s" style="height: 0px;">
+        <svg width="100%" height="2px" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="2px" fill="#F5F5F5" />
+        </svg>
+    </div>
 </template>
 
 <script lang="ts" setup>

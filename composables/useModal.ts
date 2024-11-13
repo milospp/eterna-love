@@ -1,0 +1,1 @@
+export { useModal } from 'vue-final-modal'

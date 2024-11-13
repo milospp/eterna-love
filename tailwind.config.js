@@ -17,5 +17,10 @@ export default {
     },
   },
   plugins: [],
+  resolve: {
+    alias: {
+      'sortablejs': 'sortablejs/modular/sortable.core.esm.js'
+    }
+  }
 }
 

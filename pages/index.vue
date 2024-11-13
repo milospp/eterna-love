@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="relative">
-            <div class="relative z-10">
+            <div class="relative z-10 h-full">
                 <CoreNavbar />
                 <LandingHero />
             </div>

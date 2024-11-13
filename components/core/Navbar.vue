@@ -16,10 +16,10 @@
           class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start sm:absolute inset-y-0 left-0">
           <div class="flex flex-shrink-0 items-center">
             <NuxtLink to="/">
-              <img loading="lazy" class="h-8 w-auto lg:hidden" src="/public/EternaLoveHeartSmallLogo.svg"
-              alt="Eterna Love" />
-              <img loading="lazy" class="hidden h-8 w-auto lg:block" src="/public/EternaLoveLogo.svg"
-              alt="Eterna Love" />
+              <img loading="lazy" class="h-8 w-auto lg:hidden" src="/assets/static/EternaLoveHeartSmallLogo.svg"
+                alt="Eterna Love" />
+              <img loading="lazy" class="hidden h-8 w-auto lg:block" src="/assets/static/EternaLoveLogo.svg"
+                alt="Eterna Love" />
             </NuxtLink>
           </div>
         </div>
