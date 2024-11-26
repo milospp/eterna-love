@@ -5,7 +5,6 @@
             <template v-else>Odaberite društvenu mrežu</template>
 
         </h1>
-        <!-- <WizardMiscTutorialSlideShow class="my-5" /> -->
 
         <div class="flex items-center justify-center gap-4">
             <div v-for="social in socials" @click="onSelectedSocial(social)">
@@ -29,8 +28,9 @@
                     <div>
                         <div v-if="minimisedTutorialSlides">
                             <button @click="minimisedTutorialSlides = false"
-                                class="mb-3 p-5 block w-full text-white text-center">Prikaži
-                                uputstvo</button>
+                                class="mb-3 p-5 block w-full text-white text-center">
+                                Prikaži uputstvo
+                            </button>
                         </div>
                         <div v-else class="mt-20">
                             <div class="relative min-h-14">
@@ -45,7 +45,8 @@
                                     {{ tutorialTitle }}
                                 </h1>
                             </div>
-                            <WizardMiscTutorialSlideShow class="my-5" @changed="updateTutorialTitle" />
+                            <WizardMiscTutorialSlideShow :social="selectedSocial" class="my-5"
+                                @changed="updateTutorialTitle" />
                         </div>
                     </div>
 
@@ -101,7 +102,7 @@
             </div>
 
             <div class="flex flex-col items-center justify-center p-5">
-                <img class="w-2/3 sm:w-auto sm:p-8" src="/public/icons/upload_scheme_eterna_love_chat.svg"
+                <img class="w-2/3 sm:w-auto sm:p-8" src="/public/images/upload-scheme-eterna-love-chat.svg"
                     alt="Chats are not shared with us. All processing is on your computer" />
                 <span class="text-slate-100 px-4 md:px-6 sm:px-10 mt-4 font-thin">Statistika se računa na vašem uređaju,
                     mi dobijamo samo podatke za grafike.</span>

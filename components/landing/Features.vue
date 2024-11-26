@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class=" bg-gray-200 py-16">
-            <div class="grid grid-cols-1 sm:grid-cols-3 mx-auto max-w-7xl px-6 gap-32">
+            <div class="grid grid-cols-1 sm:grid-cols-3 mx-auto max-w-7xl px-6 gap-32 text-lg text-center">
 
                 <div class="col-span-1 flex flex-col items-center gap-10">
                     <svg width="86" height="87" viewBox="0 0 86 87" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,6 @@
                     </svg>
                     <p>Vaše poruke se analiziraju na vašem uređaju, a na server šaljemo samo statistiku.</p>
                 </div>
-
 
                 <div class="col-span-1 flex flex-col items-center gap-10">
                     <svg width="89" height="90" viewBox="0 0 89 90" fill="none" xmlns="http://www.w3.org/2000/svg"

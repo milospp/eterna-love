@@ -53,3 +53,20 @@ export function hasInvisibleChars(text: string) {
 export function removeInvisibleChars(text: string) {
     return text.replace(/[\u200B-\u200E\uFEFF]/g, ''); // Uklanja ZERO WIDTH SPACE, ZERO WIDTH NON-JOINER, itd.
 }
+
+export function getItemColumn(item: PosterItem, items: PosterItem[], columns: number): number {
+    let column = 0
+    for (let i = 0; i < items.length; i++) {
+        if (items[i] === item) break;
+        column += items[i].width || 1;
+    }
+    return column % columns
+}
+
+export function getAvaialbleFrames(format?: PosterFormatOption) {
+    if (format && !format.digital) {
+        let availableFrames = FRAME_TYPES.filter(x => !x.compatibleFormats || x.compatibleFormats?.includes(format.id))
+        return availableFrames
+    }
+    return []
+}

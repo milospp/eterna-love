@@ -11,6 +11,8 @@
 
     </div> -->
 
+    <!-- {{ tutorialSlides }} -->
+
     <div class=" select-none">
         <swiper :slides-per-view="'auto'" :centeredSlidesBounds="true" :centered-slides="true" :space-between="10"
             :navigation="true" :free-mode="{ sticky: true }"
@@ -18,23 +20,8 @@
             :keyboard="true" :pagination="{ type: 'progressbar' }" @swiper="setSwiperRef" @reach-end="onReachEnd"
             @active-index-change="" @snap-index-change="changed">
 
-            <swiper-slide class="w-32">
-                <img src="/public/tutorial/example_screen.png" class="h-full object-contain" />
-            </swiper-slide>
-            <swiper-slide class="w-32">
-                <img src="/public/tutorial/example1.png" class="h-full object-contain" />
-            </swiper-slide>
-            <swiper-slide class="w-32">
-                <img src="/public/tutorial/example2.png" class="h-full object-contain" />
-            </swiper-slide>
-            <swiper-slide class="w-32">
-                <img src="/public/tutorial/example3.png" class="h-full object-contain" />
-            </swiper-slide>
-            <swiper-slide class="w-32">
-                <img src="/public/tutorial/example1.png" class="h-full object-contain" />
-            </swiper-slide>
-            <swiper-slide class="w-32">
-                <img src="/public/tutorial/example2.png" class="h-full object-contain" />
+            <swiper-slide v-for="slide in tutorialSlides" class="w-32">
+                <img :src="slide.image" class="h-full object-contain" />
             </swiper-slide>
 
         </swiper>
@@ -55,9 +42,22 @@ import 'swiper/css/pagination';
 const modules = [Controller, Pagination, Mousewheel, FreeMode, Navigation, Keyboard];
 const swiperRef = ref<any>(null);
 const bugfixSwipedToFirst = ref(false);
+
+const props = defineProps<{
+    social: SocialNetworkType
+}>();
+
+
+
+
 const emit = defineEmits<{
     (e: 'changed', title: string): void
 }>();
+
+
+const tutorialSlides: ComputedRef<TutorialStep[]> = computed(() => {
+    return TUTORIAL_SLIDES[props.social]['default']
+})
 
 const titles: string[] = [
     '1. Otvori instagram i idi na profil',
@@ -91,7 +91,9 @@ function changed(slide: any) {
     // console.log(slide);
 
     // emit('changed', titles[slide.activeIndex || 0]);
-    emit('changed', titles[slide.snapIndex || 0]);
+    let text = tutorialSlides.value[slide.snapIndex || 0]?.title || '';
+
+    emit('changed', text);
 }
 
 </script>

@@ -1,28 +1,49 @@
 <template>
     <SharedModalsBaseModal>
-        <div v-for="i in [2, 5, 4]">
+        <div v-for="(items, groupId) in groupedItems">
+            <p class=" text-slate-500 text-xl font-thin mb-4">{{ groupId }}</p>
 
-            <p class=" text-slate-500 text-xl font-thin mb-4">Broj poruka</p>
             <div class="grid grid-cols-4 gap-3 pb-8">
-                <WizardCanvasItem @click="emit('confirm', type)" v-for="type in itemTypes.slice(i, i + i)" :type="type"
+                <WizardCanvasItem @click="emit('confirm', item.type_id)" v-for="item in items" :type="item.type_id"
                     location="MODAL_GALERY" />
             </div>
         </div>
+
+        <SharedButtonsButton v-if="siteStore.posterTheme" @click="showAllThemes" class="mx-auto px-6 py-4">Prikaži sve
+            teme</SharedButtonsButton>
+
     </SharedModalsBaseModal>
 </template>
 
 <script lang="ts" setup>
+import type { CategoriesType, ItemType } from '~/utils/constants';
 
-const itemTypes = ref([
-    "MSG_COUNT_BAR",
-    "GN_HOURS",
-    "TOP_EMOJI",
-    "LAUGH_COUNT",
-    "MSG_COUNT_HEART",
-    "GM_HOURS",
-    "MSG_TIME_BAR",
-    "MOST_FREQUENT_WORDS",
-]);
+const siteStore = useSiteStore()
+
+
+const groupedItems = computed(() => {
+    let groups: Record<CategoriesType, ItemType[]> = {
+        'ACTIVITY': [],
+        'CONTENT': [],
+        'COUNT': [],
+        'FIRST_MESSAGE': [],
+        'MEDIA': [],
+        'OTHER': []
+    }
+
+
+    ALL_ITEM_TYPES.forEach(type => {
+        console.log(type)
+        if (siteStore.posterTheme == null || type.theme_id === siteStore.posterTheme.id)
+            groups[type.category].push(type)
+    })
+
+    return groups
+})
+
+function showAllThemes() {
+    siteStore.posterTheme = null
+}
 
 const emit = defineEmits<{
     (e: 'confirm', message: string): void

@@ -1,7 +1,7 @@
 <template>
     <div class="space-y-8">
         <h2 class="text-xl font-semibold text-gray-900">Moji Podaci</h2>
-        <ContactForm />
+        <WizardCheckoutContactForm purpose="CONTACT" />
 
         <div>
             <SharedButtonsAction @click="saveContect" class="mt-12 px-14 py-4 mx-auto">
@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import ContactForm from './ContactForm.vue';
 
 
 const emit = defineEmits(['saved']);

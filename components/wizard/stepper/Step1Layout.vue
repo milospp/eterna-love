@@ -75,6 +75,7 @@ function selectLayout(layout: CardLayoutType) {
     clearTimeout(debounceTimeout);
     debounceTimeout = setTimeout(() => {
         siteStore.posterEdit.layout = layout;
+        siteStore.fixPosterItemSizing()
         nextTick(() => {
             emit('layoutSelected', layout);
         });

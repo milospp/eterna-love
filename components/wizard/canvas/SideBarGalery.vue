@@ -1,7 +1,12 @@
 <template>
     <div id="itemsSideGalery" class="gap-3 h-full flex flex-col overflow-y-auto">
 
-        <WizardCanvasItem v-for="type in itemTypes" :type="type" location="SIDE_GALERY" />
+        <WizardCanvasItem @click="appendItem(type)" v-for="type in siteStore.themedItems" :type="type.type_id"
+            :col-span="type.width" location="SIDE_GALERY" />
+
+        <SharedButtonsButton v-if="siteStore.posterTheme" @click="showAllThemes" class="mx-auto px-6 py-4">Prikaži sve
+            teme</SharedButtonsButton>
+
     </div>
     <div ref="itemRemoveArea" v-show="siteStore.designerShowDeleteItemSection"
         class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center text-lg" id="itemDeleteZone">
@@ -25,16 +30,6 @@ import { useSiteStore } from '@/stores/siteStore'
 
 const siteStore = useSiteStore()
 
-const itemTypes = ref([
-    "MSG_COUNT_BAR",
-    "GN_HOURS",
-    "TOP_EMOJI",
-    "LAUGH_COUNT",
-    "MSG_COUNT_HEART",
-    "GM_HOURS",
-    "MSG_TIME_BAR",
-    "MOST_FREQUENT_WORDS",
-]);
 
 function getDimension(element: HTMLElement) {
     const style = window.getComputedStyle(element);
@@ -44,6 +39,27 @@ function getDimension(element: HTMLElement) {
     return { width, height };
 }
 
+
+function showAllThemes() {
+    siteStore.posterTheme = null
+}
+
+function appendItem(item: ItemType) {
+    let emptyItems = siteStore.posterEdit.posterItems.filter(x => x.type == null && x.width > 0)
+    if (emptyItems.length < item.width) return
+
+
+    // let column = getItemColumn(emptyItem, siteStore.posterEdit.posterItems, siteStore.posterEdit.layout?.dimX || 12)
+
+    emptyItems[0].type = item.type_id
+    emptyItems[0].width = item.width
+
+    for (let i = 1; i < item.width; i++) {
+        emptyItems[i].width = 0
+    }
+
+    siteStore.fixPosterItemSizing()
+}
 
 function animate(source: HTMLElement, target: HTMLElement) {
     const sourceRect = source.getBoundingClientRect();
@@ -112,10 +128,14 @@ onMounted(() => {
                 if (sourceIndex < 0 || targetIndex < 0) return false
 
                 if (target.parentElement?.id == "posterGrid") {
-                    const temp: string = itemTypes.value[sourceIndex];
-                    siteStore.posterItems[targetIndex].type = temp
+                    const temp: ItemType = siteStore.themedItems[sourceIndex];
 
-                    animate(source, target);
+                    siteStore.setPosterTypeOnIndex(targetIndex, temp)
+
+                    // siteStore.posterItems[targetIndex].type = temp.type_id
+                    // siteStore.posterItems[targetIndex].width = temp.width
+
+                    // animate(source, target);
 
                 }
 

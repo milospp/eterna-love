@@ -1,5 +1,5 @@
 <template>
-    <div class="break-words">
+    <div>
         <div class="min-h-screen grid grid-rows-[1fr_auto]">
             <slot />
             <CoreFooter />

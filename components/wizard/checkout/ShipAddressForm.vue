@@ -4,22 +4,26 @@
 
         <div>
             <div class="flex items-center ps-4 border border-gray-200 first:rounded-t last:rounded-b">
-                <input v-model="shipAddress" id="same-address" type="radio" value="SAME" name="ship-address"
+                <input v-model="siteStore.checkout.shippingInfoForm" id="same-address" type="radio" value="SAME"
+                    name="ship-address"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2 ">
-                <label for="same-address" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">Ista kao adresa
-                    kupca</label>
+                <label for="same-address" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 ">
+                    Ista kao adresa kupca
+                </label>
             </div>
             <div class="flex items-center ps-4 border border-gray-200 first:rounded-t last:rounded-b">
-                <input v-model="shipAddress" id="new-address" type="radio" value="NEW" name="ship-address"
+                <input v-model="siteStore.checkout.shippingInfoForm" id="new-address" type="radio" value="DIFFERENT"
+                    name="ship-address"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2">
-                <label for="new-address" class="w-full py-4 ms-2 text-sm font-medium text-gray-900">Druga adresa za
-                    dostavu</label>
+                <label for="new-address" class="w-full py-4 ms-2 text-sm font-medium text-gray-900">
+                    Druga adresa za dostavu
+                </label>
             </div>
         </div>
 
 
         <Transition name="fade">
-            <WizardCheckoutContactForm v-if="shipAddress == 'NEW'" />
+            <WizardCheckoutContactForm purpose="SHIPPING" v-if="siteStore.checkout.shippingInfoForm == 'DIFFERENT'" />
         </Transition>
 
 
@@ -37,7 +41,7 @@
 <script lang="ts" setup>
 
 const emit = defineEmits(['saved']);
-const shipAddress = ref('SAME');
+const siteStore = useSiteStore();
 
 function saveContect() {
     console.log('Check data');

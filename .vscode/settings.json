@@ -1,4 +1,9 @@
 {
     "editor.formatOnSave": true,
-    "prettier.tabWidth": 4
+    "prettier.tabWidth": 4,
+    "files.watcherExclude": {
+        ".nuxt/": true,
+        ".nuxt/**": true,
+        "**/.nuxt/**": true
+    }
 }

@@ -1,26 +1,30 @@
 <template>
-    <div class="mx-auto gap-5 max-w-7xl sm:flex pt-20 pb-10 break-words">
+    <div class="mx-auto gap-5 max-w-7xl sm:flex pt-20 pb-10">
         <div class="sm:w-1/2 md:w-1/2">
             <div class="flex flex-col justify-center h-full">
-                <h1
-                    class=" text-5xl md:text-6xl font-bold mt-10 mb-10 px-6 sm:px-16 text-center sm:text-left hyphens-auto">
-                    Vizualizujte vaš chat</h1>
+                <div class="px-6 sm:px-16  mt-10 mb-10">
+                    <h1 class=" text-5xl md:text-6xl font-bold text-center sm:text-left hyphens-auto">
+                        {{ heroTitle }}
+                    </h1>
+
+                </div>
                 <NuxtLink to="/wizard">
                     <SharedCtaButton class="hidden sm:flex"></SharedCtaButton>
                 </NuxtLink>
             </div>
         </div>
         <div class="md:w-1/2 sm:w-1/2">
-            <div class="flex items-end justify-center relative h-full">
+            <div class="flex justify-center relative h-full items-center">
                 <div class="relative border-8 w-1/2 border-gray-700 z-20 shadow-lg">
                     <div class="poster-shadow"></div>
-                    <img class="relative z-10" src="public/EternaExample1.png" alt="">
+                    <img class="relative z-10" src="/public/images/eterna-love-example-pastel-1.png" alt="">
                 </div>
                 <div class="relative border-8 w-2/5 border-gray-700 ml-[-10%] mb-1 z-10 shadow-sm">
                     <div class="poster-shadow"></div>
-                    <img class="relative z-20" src="public/EternaExample1.png" alt="">
+                    <img class="relative z-20" src="/public/images/eterna-love-example-cute-1.jpg" alt="">
                 </div>
             </div>
+
             <NuxtLink to="/wizard">
                 <SharedCtaButton class="sm:hidden"></SharedCtaButton>
             </NuxtLink>
@@ -50,6 +54,13 @@
 
 <script lang="ts" setup>
 
+const heroTitle = ref('Vizualizujte vaš chat');
+
+
+onBeforeMount(() => {
+    const randomIndex = Math.floor(Math.random() * HERO_TITLES.length);
+    heroTitle.value = HERO_TITLES[randomIndex]
+});
 </script>
 
 <style scoped>

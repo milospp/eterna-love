@@ -5,15 +5,32 @@
             <slot name="icon"></slot>
         </span>
         <div>
-            <h3 class="text-sm font-bold">Milos Popovic</h3>
+            <h3 class="text-sm font-bold">{{ baseStore.fullname.value || 'Unesite podatke' }}</h3>
             <!-- <p class=" font-light text-sm">Kitoska 55 Slepcevic 21000</p> -->
-            <p class=" font-light text-sm">0631353860</p>
-            <p class=" font-light text-sm">misa01523@gmail.com</p>
+            <p class=" font-light text-sm">{{ baseStore.phone.value }}</p>
+            <p class=" font-light text-sm">{{ baseStore.email.value }}</p>
+            <p v-if="purpose == 'SHIPPING'" class="font-light text-sm">{{ baseStore.street.value }} {{
+                baseStore.streetNumber.value }} {{
+                    baseStore.city.value }}</p>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+
+const props = defineProps({
+    purpose: {
+        type: String as PropType<'CONTACT' | 'SHIPPING'>,
+        required: true
+    }
+});
+
+const siteStore = useSiteStore();
+
+const baseStore: ComputedRef<ContactData> = computed(() => {
+    if (siteStore.checkout.shippingInfoForm == 'SAME') return siteStore.checkout.contactInfo
+    return props.purpose === 'CONTACT' ? siteStore.checkout.contactInfo : siteStore.checkout.shippingInfo;
+})
 
 </script>
 

@@ -19,6 +19,10 @@
             </div>
         </div>
 
+        <!-- <h1 @click="test">test1</h1>
+        <h1 @click="test2">test2</h1> -->
+        <!-- <pre>{{ siteStore.posterItems }}</pre> -->
+
         <!-- Alerts -->
         <SharedAlertWarning v-if="siteStore.hasDuplicateItems" class="w-full sm:w-2/3">Dodali ste dve iste komponente
         </SharedAlertWarning>
@@ -32,7 +36,7 @@
                 @changed="changedLayout">
             </SharedButtonsPlusMinusButton>
 
-            <SharedButtonsButton small class="px-4 py-2">
+            <SharedButtonsButton @click="changeTheme" small class="px-4 py-2">
                 <span class="hidden sm:block">Promeni temu</span>
                 <svg class="h-6 max-w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path
@@ -88,6 +92,8 @@
 </template>
 
 <script lang="ts" setup>
+import PosterTheme from '~/components/shared/modals/PosterTheme.vue';
+
 const emit = defineEmits(['itemsConfirmed']);
 
 const siteStore = useSiteStore();
@@ -96,17 +102,74 @@ const layoutNumer = ref(siteStore.posterEdit.layout?.elementCount || 12)
 const availableLayoutCounts = AVAILABLE_LAYOUT_TYPES.map(x => x.elementCount)
 const triedSubmit = ref(false)
 
+
+const { open: openThemeModal, close: closeThemeModal } = useModal({
+    component: PosterTheme,
+    attrs: {
+        title: "Odaberi dizajn",
+        onConfirm(theme: PosterTheme) {
+            siteStore.posterTheme = theme
+            closeThemeModal()
+        },
+    },
+
+})
+
+
+function test() {
+
+    // siteStore.posterEdit.posterItems.splice(0, 1)
+    siteStore.posterEdit.posterItems[0].width = 0
+    siteStore.posterEdit.posterItems[1].width = 3
+
+
+    // siteStore.posterEdit.posterItems.splice(1, 1)
+    // siteStore.posterEdit.posterItems.splice(1, 1)
+
+
+
+
+    // siteStore.posterEdit.posterItems[0].width = 2
+    // siteStore.posterEdit.posterItems[1].width = 0
+    // setTimeout(() => {
+    //     siteStore.posterEdit.posterItems.slice(1, 1)
+
+    // }, 200);
+
+}
+
+
+function test2() {
+    siteStore.posterEdit.posterItems[0].width = 1
+    siteStore.posterEdit.posterItems.splice(1, 0, { id: 15, type: undefined, width: 1, text: 2 })
+
+    siteStore.posterEdit.posterItems[1].width = 1
+}
+
+function changeTheme() {
+    openThemeModal()
+}
+
 function changedLayout(i: any) {
     let newLayout = AVAILABLE_LAYOUT_TYPES.find(x => x.elementCount == i)
         || AVAILABLE_LAYOUT_TYPES.find(x => x.elementCount > i)
         || AVAILABLE_LAYOUT_TYPES[0];
 
     siteStore.posterEdit.layout = newLayout
+    siteStore.fixPosterItemSizing()
 }
 
 onMounted(() => {
     if (siteStore.posterEdit.layout == undefined) changedLayout(12)
+
+    selectTheme()
 })
+
+function selectTheme() {
+    if (siteStore.posterTheme) return
+    setTimeout(() => { openThemeModal() }, 500)
+
+}
 
 function confirmItems() {
     triedSubmit.value = true
@@ -116,17 +179,29 @@ function confirmItems() {
 }
 
 function addRandomly() {
-    let randomizedItems = ALL_ITEM_TYPES
+    let randomizedItems = siteStore.themedItems
         .map(item => {
             return { ...item }
         }).sort(() => Math.random() - 0.5)
 
-    let hasEmpty = siteStore.hasEmptyItems
+    // let hasEmpty = siteStore.hasEmptyItems
 
-    siteStore.posterEdit.posterItems.forEach((item, index) => {
-        // if (hasEmpty && item.type != null) return
-        item.type = randomizedItems.pop()?.type_id
-    })
+    function applyRandomizedItems(randomElements, onlyEmpty = false) {
+        siteStore.posterEdit.posterItems.forEach((item, index) => {
+            if (onlyEmpty && item.type) return; // Skip if already has type
+
+            let element = randomElements.pop()
+            if (!element) return;
+            item.type = element.type_id
+            item.width = element.width
+            item.height = element.height
+        })
+    }
+
+    applyRandomizedItems(randomizedItems, false)
+    siteStore.fixPosterItemSizing()
+    randomizedItems = randomizedItems.filter(x => x.width === 1 && x.height === 1)
+    applyRandomizedItems(randomizedItems, true)
 }
 
 </script>

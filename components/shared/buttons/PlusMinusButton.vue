@@ -7,8 +7,9 @@
         <div class="relative">
             <input :value="model" @change="changedValue($event)"
                 class="p-0 h-full sm:w-28 w-14 sm:pb-4 text-center bg-transparent outline-none text-2xl" type="number">
-            <span class="hidden sm:block absolute bottom-1 w-full left-0 right-0 text-center text-xs">Broj
-                elemenata</span>
+            <span class="hidden sm:block absolute bottom-1 w-full left-0 right-0 text-center text-xs">
+                Broj elemenata
+            </span>
         </div>
         <button @click="increment()" class="bg-blue-950 hover:bg-indigo-950 rounded-r-full h-full px-5">+</button>
     </span>

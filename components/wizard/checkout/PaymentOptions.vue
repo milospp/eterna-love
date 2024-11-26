@@ -5,7 +5,7 @@
             <div class="mb-5">
                 <div v-for="payment in paymentOptions" class="flex w-full text-left group">
                     <input type="radio" name="payment_option" :id="'payment_' + payment.name" class="peer hidden"
-                        :value="payment.name" @change="selectedPayment">
+                        :value="payment.name" @change="selectedPayment(payment.name)">
                     <label :for="'payment_' + payment.name"
                         class="cursor-pointer border border-gray-200 peer-checked:border-yellow-500 peer-checked:border-2 peer-checked:rounded group-first:rounded-t group-last:rounded-b w-full py-4 px-4 flex content-between">
                         <span class="text-sm font-medium">
@@ -39,20 +39,33 @@
 const applePaySupport = ref(false);
 const emit = defineEmits(['saved']);
 
-const paymentOption = ref(null);
-const paymentOptions = [
-    {
-        id: 1,
-        name: 'CACHE',
-        title: 'Plaćanje pouzećem'
-    },
-    {
-        id: 2,
-        name: 'MONEY_TRANSFER',
-        title: 'Uplata na račun'
-    }
+const siteStore = useSiteStore();
 
-]
+const paymentOption = ref(null);
+const paymentOptions = computed(() => {
+
+    let options = [
+        {
+            id: 1,
+            name: 'UPON_DELIVERY',
+            title: 'Plaćanje pouzećem'
+        },
+        {
+            id: 2,
+            name: 'BANK_TRANSFER',
+            title: 'Uplata na račun'
+        }
+    ]
+
+
+    if (siteStore.posterConfig.format?.digital) {
+        return options.filter(option => option.name !== 'UPON_DELIVERY');
+    }
+    return options
+
+})
+
+
 
 
 onMounted(() => {
@@ -232,7 +245,8 @@ function checkApplePAySupport() {
     }
 }
 
-function selectedPayment() {
+function selectedPayment(method: 'UPON_DELIVERY' | 'BANK_TRANSFER') {
+    siteStore.checkout.paymentInfo.paymentMethod.value = method
     emit('saved');
 }
 

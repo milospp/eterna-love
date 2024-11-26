@@ -18,10 +18,18 @@ export default defineNuxtConfig({
         },
     },
 
-    // modules: ['@nuxtjs/tailwindcss'],
     ssr: false,
 
-    modules: ['@pinia/nuxt', '@vue-final-modal/nuxt', 'nuxt-paypal'],
+
+
+    modules: ['@pinia/nuxt', '@vue-final-modal/nuxt', 'nuxt-paypal', '@nuxtjs/i18n'],
+
+
+    router: {
+        options: {
+            scrollBehaviorType: 'smooth'
+        }
+    },
 
     vite: {
         optimizeDeps: {
@@ -35,5 +43,9 @@ export default defineNuxtConfig({
         currency: 'EUR',
         // clientId: 'ARvd0LmvZHAEoPW2NnHtgBbD0POgRNQIuMJ577-yHZMFlizqbKFh6F2F87ckdLiBB6zE96zIBiVwfdJH', //LIVE
     },
+
+    image: {
+
+    }
 
 })

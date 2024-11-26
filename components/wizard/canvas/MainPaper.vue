@@ -3,24 +3,25 @@
         <!-- <SharedModalsBaseModal v-if="modal.show.value">EEj</SharedModalsBaseModal> -->
         <!-- <button @click="shuffle()">SHUFFLE</button> -->
         <header class="flex justify-between items-center">
-            <div class="relative">
+            <div class="relative w-2/5">
 
                 <button @click="handleNamePlaceholderClick"
                     class="absolute z-20 top-0 bottom-0 left-0 right-0 flex items-center justify-center bg-transparent hover:bg-slate-200 hover:bg-opacity-50 rounded-[11px]">
                     <span class="text-[0.6em] sm:text-xs text-slate font-thin">{{ posterName }}</span>
                 </button>
                 <div>
-                    <svg width="202" height="47" viewBox="0 0 202 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-full" width="c202" height="47c" viewBox="0 0 202 47" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <rect x="1" y="1" width="200" height="45" rx="13" fill="#F2F2F2" stroke="#B8AAAA"
                             stroke-width="2" stroke-dasharray="17 17" />
                     </svg>
                 </div>
             </div>
 
-            <div class="w-[195px] bg-red-50">
+            <div class="max-w-[195px] bg-red-50">
             </div>
 
-            <div>
+            <div class="w-1/3">
                 <img loading="lazy" class="h-auto w-auto" src="/assets/static/EternaLoveLogo.svg" alt="Eterna Love" />
             </div>
         </header>
@@ -28,10 +29,11 @@
 
         <section class="pt-1 h-full flex items-center">
             <TransitionGroup name="fade" tag="div" :class="customClass"
-                class="grid relative w-full h-full items-center content-center" id="posterGrid">
+                class="grid content-evenly relative w-full h-full" id="posterGrid">
 
                 <WizardCanvasItem v-for="item, index in siteStore.posterItems" :key="item.id" v-bind:test="item.id"
-                    :type="item.type" :id="item.id" :location="'MAIN_PAPER'">
+                    :class="{ 'col-span-2': item.width == 2, 'col-span-3': item.width == 3, 'hidden': item.width === 0 }"
+                    :type="item.type" :id="item.id" :location="'MAIN_PAPER'" :col-span="item.width">
                     {{ item.text }}
                 </WizardCanvasItem>
 
@@ -63,15 +65,15 @@ const customClass = computed(() => {
     if (siteStore.posterEdit.layout?.dimX == 1) {
         style += "grid-cols-1 gap-4"
     } else if (siteStore.posterEdit.layout?.dimX == 2) {
-        style += "grid-cols-2 gap-8"
+        style += "grid-cols-2 gap-[7%]"
     } else {
         style += "grid-cols-3 gap-[3%]"
     }
 
-    if (siteStore.posterEdit.layout?.elementCount == 12) style += " px-[4%] lg:px-[3%] xl:px-0 xl:gap-[2%]"
-    if (siteStore.posterEdit.layout?.elementCount == 9) style += " gap-y-[5%]"
+    if (siteStore.posterEdit.layout?.elementCount == 12) style += " px-[4%] lg:px-[3%] xl:px-0 xl:gap-[2%] py-[2%]"
+    if (siteStore.posterEdit.layout?.elementCount == 9) style += " gap-y-[5%] py-[12%]"
     if (siteStore.posterEdit.layout?.elementCount == 6) style += " gap-x-[5%] gap-y-[2%] px-[8%]"
-    if (siteStore.posterEdit.layout?.elementCount == 4) style += " gap-y-[10%]"
+    if (siteStore.posterEdit.layout?.elementCount == 4) style += " gap-y-[7%] py-[20%]"
     if (siteStore.posterEdit.layout?.elementCount == 2) style += " px-[24%] sm:px-[18%]"
 
     return style
@@ -82,6 +84,7 @@ const { open: openNameModal, close } = useModal({
     component: PaperName,
     attrs: {
         title: "Unesite vaše ime",
+        modalStyle: "max-w-xl",
         onConfirm(name1, name2) {
             siteStore.posterName1 = name1
             siteStore.posterName2 = name2
@@ -110,7 +113,8 @@ function loadSortable() {
             animation: 0,
             ghostClass: 'sortable-ghost',
             swapClass: 'sortable-swap',
-            filter: '.placeholder',
+            handle: '.handle',
+            // filter: '.placeholder',
 
             onStart(event) {
                 if (event.item.getAttribute("itemtype") == "item") {
@@ -133,6 +137,7 @@ function loadSortable() {
                     const temp: PosterItem = siteStore.posterEdit.posterItems[sourceIndex];
                     siteStore.posterEdit.posterItems[sourceIndex] = siteStore.posterEdit.posterItems[targetIndex];
                     siteStore.posterEdit.posterItems[targetIndex] = temp;
+                    siteStore.fixPosterItemSizing()
 
                 }
 

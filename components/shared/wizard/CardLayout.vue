@@ -1,14 +1,13 @@
 <template>
     <div class="group shadow-md outline outline-blue-400 hover:shadow-lg col-span-1 bg-white rounded-md lg:p-4 sm:p-3 p-2"
         :class="[active ? 'outline-8 ' : 'outline-2 hover:outline-4']">
-        <!-- <img draggable="false" class="mb-2 border border-gray-200" src="/public/EternaExample1.png" alt="" /> -->
         <div class="border border-slate-300 bg-gray-50">
             <component :is="placeholderComponent" />
         </div>
         <div class="flex justify-between items-center mt-3">
             <p class=" font-semibold text-gray-600 text-sm">{{ productTitle }}</p>
             <p class="text-slate-600 font-thin text-sm">
-                od <span class="font-normal">599 RSD</span>
+                <span class="font-normal">{{ layout.initPrice }} <span class=" text-xs">RSD</span></span>
             </p>
         </div>
     </div>
