@@ -167,3 +167,4 @@ SECURE_HSTS_SECONDS = env('SECURE_HSTS_SECONDS', default=0)
 SESSION_COOKIE_SECURE = env('SESSION_COOKIE_SECURE', default='True').lower() == 'true'
 CSRF_COOKIE_SECURE = env('CSRF_COOKIE_SECURE', default='True').lower() == 'true'
 CSRF_ALLOWED_ORIGINS = env('CSRF_ALLOWED_ORIGINS', default='').split(',')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
