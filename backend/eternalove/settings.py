@@ -18,7 +18,7 @@ import os
 
 
 environ.Env.read_env(env_file='.env')
-environ.Env.read_env(env_file='.dev-env')   # If exist it will use dev
+# environ.Env.read_env(env_file='.dev-env')   # If exist it will use dev
 env = environ.Env()
 
 
