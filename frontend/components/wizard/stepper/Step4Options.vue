@@ -18,7 +18,6 @@
                 </svg>
 
             </SharedButtonsAction>
-            {{ siteStore.posterConfig }}
 
         </div>
     </div>
