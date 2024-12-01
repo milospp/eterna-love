@@ -22,7 +22,7 @@
     "nuxt": "^3.13.0",
     "pinia": "^2.2.4",
     "qrcode.vue": "^3.6.0",
-    "sortablejs": "link:../../local_modules/SortableJS",
+    "sortablejs": "link:local_modules/SortableJS",
     "swiper": "^11.1.14",
     "unidecode": "^1.1.0",
     "vue": "latest",
