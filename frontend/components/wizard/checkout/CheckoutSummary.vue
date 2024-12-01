@@ -45,8 +45,11 @@ const totalPrice = computed(() => {
     total += posterPrice.value || 0
     total += formatPrice.value || 0
     total += paperTypePrice.value || 0
-    total += framePrice.value || 0
-    total += deliveryPrice || 0
+
+    if (!siteStore.posterConfig.format?.digital) {
+        total += framePrice.value || 0
+        total += deliveryPrice || 0
+    }
     return total
 })
 
