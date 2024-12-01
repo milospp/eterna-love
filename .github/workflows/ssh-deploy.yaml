@@ -17,6 +17,7 @@ jobs:
                   pwd
                   ls -la
                   ls -la scripts
+                  cat scripts/deploy.sh
 
             - name: Run Deployment
               run: |
