@@ -1,4 +1,6 @@
 #!/bin/bash
+cd /srv/eternalove/src/backend
+
 
 echo "Pulling latest code from repository..."
 git pull origin main
