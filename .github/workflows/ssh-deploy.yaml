@@ -1,20 +1,19 @@
 name: Deploy Eterna Love
 
 on:
-  push:
-    branches:
-      - main
+    push:
+        branches:
+            - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-        - name: Checkout repository
-          uses: actions/checkout@v2
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
 
-
-        - name: Run Deployment
-          run: |
-          ssh -i ${{ secrets.EC2_SSH_KEY }} deploy-user@admin.myeterna.love 'bash -s' < touch working.txt
-        # env:
-        #     ACTIONS_RUNNER_DEBUG: false
+            - name: Run Deployment
+              run: |
+                  ssh -i ${{ secrets.EC2_SSH_KEY }} deploy-user@admin.myeterna.love 'bash -s' < touch working.txt
+            # env:
+            #     ACTIONS_RUNNER_DEBUG: false
