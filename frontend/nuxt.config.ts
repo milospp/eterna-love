@@ -1,5 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    runtimeConfig: {
+        public: {
+            apiBase: process.env.API_BASE || 'http://localhost:8000/api',
+        }
+    },
+
     compatibilityDate: '2024-04-03',
     css: [
         '~/assets/css/main.css',
@@ -20,8 +26,6 @@ export default defineNuxtConfig({
 
     ssr: false,
 
-
-
     modules: ['@pinia/nuxt', '@vue-final-modal/nuxt', 'nuxt-paypal', '@nuxtjs/i18n'],
 
 
@@ -39,9 +43,13 @@ export default defineNuxtConfig({
 
 
     paypal: {
-        clientId: 'AXZNHOdYlElinFERTV03gfzM_kX3T_TOleKWiclb97m08ApfQFjVA6ryz7dD58FiiSZ1BLzyRvMLQ4uD',
-        currency: 'EUR',
+        clientId: process.env.PAYPAL_CLIENT_ID === 'production'
+            ? 'ARvd0LmvZHAEoPW2NnHtgBbD0POgRNQIuMJ577-yHZMFlizqbKFh6F2F87ckdLiBB6zE96zIBiVwfdJH'
+            : 'AXZNHOdYlElinFERTV03gfzM_kX3T_TOleKWiclb97m08ApfQFjVA6ryz7dD58FiiSZ1BLzyRvMLQ4uD',
+
+        // clientId: 'AXZNHOdYlElinFERTV03gfzM_kX3T_TOleKWiclb97m08ApfQFjVA6ryz7dD58FiiSZ1BLzyRvMLQ4uD',
         // clientId: 'ARvd0LmvZHAEoPW2NnHtgBbD0POgRNQIuMJ577-yHZMFlizqbKFh6F2F87ckdLiBB6zE96zIBiVwfdJH', //LIVE
+        currency: 'EUR',
     },
 
     webpack: {

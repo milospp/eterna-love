@@ -78,6 +78,8 @@ const showShipAddressForm = ref(true);
 const showPaymentOptions = ref(true);
 const errorMessage = ref('');
 const isLoading = ref(false)
+const runtimeConfig = useRuntimeConfig()
+
 
 const shippingAdressCompleted = computed(() => {
     if (siteStore.isPosterDigital) return !showContact.value;
@@ -129,7 +131,7 @@ function getCheckoutData() {
         person_2: siteStore.posterName2,
         poster_layout: siteStore.posterEdit.layout?.id,
         quantity: 1,
-        poster_format: siteStore.posterConfig.format?.id || "TEST",
+        poster_format: siteStore.posterConfig.format?.id,
         poster_paper_type: siteStore.posterConfig.paperType?.id,
         poster_frame: siteStore.posterConfig.frame?.id,
         results: siteStore.chatResults
@@ -144,7 +146,9 @@ function placeOrder() {
 
     let payload = getCheckoutData();
     // let url = 'http://localhost:8000/api/eterna/items2/'
-    let url = 'https://admin.myeterna.love/api/eterna/items2/'
+
+    // let url = 'https://admin.myeterna.love/api/eterna/items2/'
+    let url = runtimeConfig.public.apiBase + '/eterna/items2/'
     fetch(url, {
         method: 'POST',
         headers: {
