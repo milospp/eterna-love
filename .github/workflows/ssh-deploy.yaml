@@ -14,7 +14,7 @@ jobs:
 
             - name: Run Deployment
               run: |
-                  ssh -i ${{ secrets.EC2_SSH_KEY }} deploy-user@admin.myeterna.love 'bash -s' < /srv/eternalove/src/scripts/deploy.sh
+                  ssh -i ${{ secrets.EC2_SSH_KEY }} deploy-user@admin.myeterna.love 'bash -s' < scripts/deploy.sh
             # env:
             #     ACTIONS_RUNNER_DEBUG: false
 
