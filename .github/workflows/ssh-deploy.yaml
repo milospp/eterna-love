@@ -19,52 +19,52 @@ jobs:
                   host: ${{ secrets.BACKEND_HOST }}
                   username: ${{ secrets.BACKEND_USER }}
                   key: ${{ secrets.EC2_SSH_KEY }}
-                  script_file: scripts/deploy.sh
+                  script_file: scripts/test.txt
                   #   script: |
                   #       'bash -s' < scripts/deploy.sh
             # env:
             #     ACTIONS_RUNNER_DEBUG: false
 
-    prepare-frontend:
-        runs-on: ubuntu-latest
-        environment: Production EC2
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    # prepare-frontend:
+    #     runs-on: ubuntu-latest
+    #     environment: Production EC2
+    #     steps:
+    #         - name: Checkout code
+    #           uses: actions/checkout@v2
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v2
-              with:
-                  node-version: "20"
+    #         - name: Setup Node.js
+    #           uses: actions/setup-node@v2
+    #           with:
+    #               node-version: "20"
 
-            - name: Install pnpm
-              run: npm install -g pnpm
+    #         - name: Install pnpm
+    #           run: npm install -g pnpm
 
-            - name: Install dependencies
-              run: pnpm install
-              working-directory: frontend # Folder u kome se nalazi npm projekat
+    #         - name: Install dependencies
+    #           run: pnpm install
+    #           working-directory: frontend # Folder u kome se nalazi npm projekat
 
-            - name: Build project
-              env:
-                  VUE_APP_API_URL: ${{ vars.VUE_APP_API_URL }}
-              working-directory: frontend # Folder u kome se nalazi npm projekat
-              run: pnpm generate
+    #         - name: Build project
+    #           env:
+    #               VUE_APP_API_URL: ${{ vars.VUE_APP_API_URL }}
+    #           working-directory: frontend # Folder u kome se nalazi npm projekat
+    #           run: pnpm generate
 
-            - uses: jakejarvis/s3-sync-action@master
-              with:
-                  args: --follow-symlinks --delete
-              env:
-                  AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  AWS_REGION: ${{ secrets.AWS_REGION }}
-                  SOURCE_DIR: "frontend/.output/public"
+    #         - uses: jakejarvis/s3-sync-action@master
+    #           with:
+    #               args: --follow-symlinks --delete
+    #           env:
+    #               AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+    #               AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #               AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #               AWS_REGION: ${{ secrets.AWS_REGION }}
+    #               SOURCE_DIR: "frontend/.output/public"
 
-            - name: Swap Frontend
-              uses: chetan/invalidate-cloudfront-action@v2
-              env:
-                  DISTRIBUTION: ${{ secrets.AWS_DISTRIBUTION }}
-                  PATHS: "/*"
-                  AWS_REGION: ${{ secrets.AWS_REGION }}
-                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #         - name: Swap Frontend
+    #           uses: chetan/invalidate-cloudfront-action@v2
+    #           env:
+    #               DISTRIBUTION: ${{ secrets.AWS_DISTRIBUTION }}
+    #               PATHS: "/*"
+    #               AWS_REGION: ${{ secrets.AWS_REGION }}
+    #               AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #               AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
