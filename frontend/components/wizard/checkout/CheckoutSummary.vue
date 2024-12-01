@@ -41,18 +41,8 @@ const framePrice = computed(() => siteStore.posterConfig.frame?.price)
 const deliveryPrice = 300
 
 const totalPrice = computed(() => {
-    let total = 0
-    total += posterPrice.value || 0
-    total += formatPrice.value || 0
-    total += paperTypePrice.value || 0
-
-    if (!siteStore.posterConfig.format?.digital) {
-        total += framePrice.value || 0
-        total += deliveryPrice || 0
-    }
-    return total
+    return calculateCart().reduce((acc, item) => acc + (item.price || 0) * item.quantity, 0)
 })
-
 
 // const cart = computed(() => calculateCart())
 
