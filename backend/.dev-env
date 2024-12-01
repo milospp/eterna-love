@@ -1,0 +1,12 @@
+SECRET_KEY='django-insecure-jp^hd#z=synvehk@wtuer_cd0$&ki32(bpf2!wlfzb5v%o#a&udjango-insecure-jp^hd#z=synvehk@wtuer_cd0$&ki32(bpf2!wlfzb5v%o#a&u'
+SESSION_COOKIE_SECURE='False'
+SECURE_SSL_REDIRECT='False'
+DEBUG='True'
+ALLOWED_HOSTS='myeterna.love,localhost'
+# ALLOWED_HOSTS='myeterna.love'
+
+SECURE_HSTS_PRELOAD='False'
+SECURE_HSTS_INCLUDE_SUBDOMAINS='False'
+SECURE_HSTS_SECONDS=0
+
+TEST='DEV Test'
