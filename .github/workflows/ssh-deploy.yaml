@@ -21,8 +21,14 @@ jobs:
                   cat scripts/deploy.sh
 
             - name: Run Deployment
-              run: |
-                  ssh -i ${{ secrets.EC2_SSH_KEY }} deploy-user@admin.myeterna.love 'bash -s' < touch oukej
+            - name: Swap Backend
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.EC2_HOST }}
+                  username: ${{ secrets.EC2_USERNAME }}
+                  key: ${{ secrets.SSH_PRIVATE_KEY }}
+                  script: |
+                      'bash -s' < scripts/deploy.sh
             # env:
             #     ACTIONS_RUNNER_DEBUG: false
 
