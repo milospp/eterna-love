@@ -19,12 +19,7 @@ jobs:
                   host: ${{ secrets.BACKEND_HOST }}
                   username: ${{ secrets.BACKEND_USER }}
                   key: ${{ secrets.EC2_SSH_KEY }}
-                  script_path:
-                      scripts/test.txt
-                      # script: |
-                      #     echo "Hello World"
-            # env:
-            #     ACTIONS_RUNNER_DEBUG: false
+                  script_path: scripts/deploy.sh
 
     # prepare-frontend:
     #     runs-on: ubuntu-latest
