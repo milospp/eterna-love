@@ -1,11 +1,13 @@
 <template>
     <div>
         <h1 class=" text-3xl text-white font-light mb-5">Uredi svoj poster</h1>
-        <div class="flex items-stretch">
-            <div class=" border-indigo-950 border-8 aspect-paper sm:w-8/12 w-full">
-                <WizardCanvasMainPaper />
+        <div class="grid grid-cols-12 items-stretch">
+            <div class="sm:col-span-8 col-span-12">
+                <div class=" border-indigo-950 border-8 aspect-paper">
+                    <WizardCanvasMainPaper />
+                </div>
             </div>
-            <div class="hidden sm:w-4/12 sm:flex aspect-paper">
+            <div class="hidden sm:col-span-4 sm:flex">
                 <span class="p-4 m-auto">
                     <svg width="41" height="138" viewBox="0 0 41 138" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -13,7 +15,7 @@
                             fill="white" />
                     </svg>
                 </span>
-                <div class="relative w-full bg-blue-950">
+                <div class="relative w-full aspect-[1/1] bg-blue-950">
                     <WizardCanvasSideBarGalery />
                 </div>
             </div>
