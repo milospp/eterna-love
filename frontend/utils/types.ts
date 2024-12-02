@@ -113,7 +113,7 @@ export type ItemTypeId =
     | 'M_1_EMOJI'
     | 'M_1_FIRST_MESSAGE'
     | 'M_1_GM_TABLE'
-    | 'M_1_GMGN_CHART'
+    | 'M_2_GMGN_CHART'
     | 'M_1_GN_TABLE'
     | 'M_2_HOURS_CHART'
     | 'M_1_ILY'
@@ -242,6 +242,7 @@ export type PredefinedTemplate = {
     layout: CardLayoutType;
     theme?: PosterTheme;
     items: PosterItem[];
+    image: string;
 }
 
 

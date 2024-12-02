@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto gap-5 max-w-7xl sm:flex pt-20 pb-10">
+    <div class="mx-auto gap-5 max-w-7xl sm:flex sm:pt-20 pb-10">
         <div class="sm:w-1/2 md:w-1/2">
             <div class="flex flex-col justify-center h-full">
                 <div class="px-6 sm:px-16  mt-10 mb-10">
@@ -17,11 +17,13 @@
             <div class="flex justify-center relative h-full items-center">
                 <div class="relative border-8 w-1/2 border-gray-700 z-20 shadow-lg">
                     <div class="poster-shadow"></div>
-                    <img class="relative z-10" src="/public/images/eterna-love-example-pastel-1.png" alt="">
+                    <img class="relative z-10 aspect-paper"
+                        src="/public/poster/examples/eternalove-example-pastel-lavanda-3-4.jpg" alt="">
                 </div>
                 <div class="relative border-8 w-2/5 border-gray-700 ml-[-10%] mb-1 z-10 shadow-sm">
                     <div class="poster-shadow"></div>
-                    <img class="relative z-20" src="/public/images/eterna-love-example-cute-1.jpg" alt="">
+                    <img class="relative z-20 aspect-paper"
+                        src="/public/poster/examples/eternalove-example-cute-2-3.jpg" alt="">
                 </div>
             </div>
 

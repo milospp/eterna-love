@@ -5,14 +5,16 @@
             <div class="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-10 pt-4">
 
                 <div @click="loadPredefinedTemplate(item)" v-for="item, index in PREDEFINED_TEMPLATES" :key="item.id"
-                    class="shadow-md hover:mt-[-4px] hover:shadow-lg col-span-1 bg-white rounded-sm border-gray-300 border-1 lg:p-6 sm:p-5 p-2 lg:block"
+                    class="shadow-md hover:mt-[-4px] hover:shadow-lg col-span-1 bg-white rounded-sm border-gray-300 border-1 lg:p-3 sm:p-2 p-1 lg:block"
                     :class="{ 'lg:hidden': !showAll && index >= 4, 'md:hidden': !showAll && index >= 3, 'hidden': !showAll && index >= 4 }">
-                    <img class="mb-2 aspect-paper w-full" src="/public/images/eterna-love-example-pastel-1.png"
-                        alt="" />
-                    <p class="">{{ item.name }}</p>
-                    <p class="text-slate-600 font-thin text-sm">
-                        od <span class="font-normal">599 RSD</span>
-                    </p>
+                    <img class="mb-2 aspect-paper w-full" :src="item.image" alt="" />
+                    <div class="lg:px-4 sm:px-2 px-2">
+
+                        <p class="">{{ item.name }}</p>
+                        <p class="text-slate-600 font-thin text-sm">
+                            od <span class="font-normal">{{ item.layout.initPrice }} RSD</span>
+                        </p>
+                    </div>
                 </div>
 
             </div>

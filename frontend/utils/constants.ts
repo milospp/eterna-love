@@ -81,7 +81,7 @@ export const ALL_ITEM_TYPES: ItemType[] = [
     { type_id: 'M_1_EMOJI', theme_id: 'MODERN', category: 'CONTENT', src: new URL('/public/poster/theme-items/modern/emoji.png', import.meta.url).href, alt: '101', width: 1, height: 1 },
     { type_id: 'M_1_FIRST_MESSAGE', theme_id: 'MODERN', category: 'CONTENT', src: new URL('/public/poster/theme-items/modern/first-message.png', import.meta.url).href, alt: '101', width: 1, height: 1 },
     { type_id: 'M_1_GM_TABLE', theme_id: 'MODERN', category: 'ACTIVITY', src: new URL('/public/poster/theme-items/modern/gm-table.png', import.meta.url).href, alt: '101', width: 1, height: 1 },
-    { type_id: 'M_1_GMGN_CHART', theme_id: 'MODERN', category: 'ACTIVITY', src: new URL('/public/poster/theme-items/modern/gmgn-chart-2.png', import.meta.url).href, alt: '101', width: 2, height: 1 },
+    { type_id: 'M_2_GMGN_CHART', theme_id: 'MODERN', category: 'ACTIVITY', src: new URL('/public/poster/theme-items/modern/gmgn-chart-2.png', import.meta.url).href, alt: '101', width: 2, height: 1 },
     { type_id: 'M_1_GN_TABLE', theme_id: 'MODERN', category: 'ACTIVITY', src: new URL('/public/poster/theme-items/modern/gn-table.png', import.meta.url).href, alt: '101', width: 1, height: 1 },
     { type_id: 'M_2_HOURS_CHART', theme_id: 'MODERN', category: 'ACTIVITY', src: new URL('/public/poster/theme-items/modern/hours-chart-2.png', import.meta.url).href, alt: '102', width: 2, height: 1 },
     { type_id: 'M_1_ILY', theme_id: 'MODERN', category: 'CONTENT', src: new URL('/public/poster/theme-items/modern/ily.png', import.meta.url).href, alt: '101', width: 1, height: 1 },
@@ -134,69 +134,277 @@ export const ALL_THEMES: PosterTheme[] = [
 
 export const PREDEFINED_TEMPLATES: PredefinedTemplate[] = [
     {
-        id: 'P2_1',
-        name: '2x1',
+        id: 'P4_3',
+        name: 'Pastel 3x4',
         items: [
-            { id: 1, type: "P1_1_TOP_EMOJI", width: 1 },
-            { id: 2, type: "P2_1_LAUGH_COUNT", width: 1 },
+            { id: 1, type: "PL_1_TOTAL_BAR", width: 1 },
+            { id: 2, type: "PL_1_TIME_SPENT", width: 1 },
+            { id: 3, type: "PL_1_SENT_VIDEO", width: 1 },
+            { id: 4, type: "PL_2_ILY", width: 2 },
+            { id: 5, type: "PL_1_VOICE", width: 1 },
+            { id: 6, type: "PL_1_SENT_IMAGE", width: 1 },
+            { id: 7, type: "PL_2_FIRST_MESSAGE", width: 2 },
+            { id: 8, type: "PL_2_TIMELINE", width: 2 },
+            { id: 9, type: "PL_1_RESPONSE_TIME", width: 1 },
         ],
-        layout: LAYOUT_TYPES[1],
-        theme: ALL_THEMES.find(x => x.id === 'PASTEL_ORANGE')
+        layout: LAYOUT_TYPES[5],
+        theme: ALL_THEMES.find(x => x.id === 'PASTEL_LAVANDA'),
+        image: new URL('/public/poster/examples/eternalove-example-pastel-lavanda-3-4.jpg', import.meta.url).href
+    },
+    {
+        id: 'C3_3',
+        name: 'Cute 3x3',
+        items: [
+            { id: 1, type: "C_1_HOURS_CHART", width: 1 },
+            { id: 2, type: "C_1_ILY", width: 1 },
+            { id: 3, type: "C_1_EMOJI", width: 1 },
+            { id: 4, type: "C_1_GMGN_CHART", width: 1 },
+            { id: 5, type: "C_1_WEEK_BAR", width: 1 },
+            { id: 6, type: "C_1_TOTAL_PIE", width: 1 },
+            { id: 7, type: "C_2_WEEK_PIE", width: 2 },
+            { id: 8, type: "C_1_LONGEST_GHOST", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[4],
+        theme: ALL_THEMES.find(x => x.id === "CUTE"),
+        image: new URL('/public/poster/examples/eternalove-example-cute-3-3.jpg', import.meta.url).href
+
+    },
+    {
+        id: 'M2_3',
+        name: 'Modern 2x3',
+        items: [
+            { id: 1, type: "M_1_FIRST_MESSAGE", width: 1 },
+            { id: 2, type: "M_1_ILY", width: 1 },
+            { id: 3, type: "M_2_WEEK_BAR", width: 2 },
+            { id: 4, type: "M_1_SENT_REELS", width: 1 },
+            { id: 5, type: "M_1_WORDS", width: 1 },
+
+        ],
+        layout: LAYOUT_TYPES[3],
+        theme: ALL_THEMES.find(x => x.id === 'MODERN'),
+        image: new URL('/public/poster/examples/eternalove-example-modern-2-3.jpg', import.meta.url).href
     },
     {
         id: 'P2_2',
-        name: '2x2',
+        name: 'Pastel 2x2',
         items: [
-            { id: 1, type: "P2_1_TOP_EMOJI", width: 1 },
-            { id: 2, type: "P2_1_LAUGH_COUNT", width: 1 },
-            { id: 3, type: "P2_2_TIMELINE", width: 2 },
-        ],
-        layout: LAYOUT_TYPES[2],
-        theme: ALL_THEMES.find(x => x.id === "PASTEL_PURPLE")
-    },
-    {
-        id: 'P3_1',
-        name: '3x1',
-        items: [
-            { id: 1, type: "P2_1_TOP_EMOJI", width: 1 },
-            { id: 2, type: "P2_1_LAUGH_COUNT", width: 1 },
-            { id: 3, type: "P2_2_TIMELINE", width: 2 },
-        ],
-        layout: LAYOUT_TYPES[3],
-        theme: ALL_THEMES.find(x => x.id === 'PASTEL_PINK')
-    },
-    {
-        id: 'P3_2',
-        name: '3x3',
-        items: [
-            { id: 1, type: "P2_2_ILY", width: 2 },
-            { id: 2, type: "P2_1_LAUGH_COUNT", width: 1 },
-            { id: 3, type: "P2_2_TIMELINE", width: 2 },
-            { id: 4, type: "P2_1_MOST_FREQUENT_WORDS", width: 1 },
-            { id: 5, type: "P2_1_MSG", width: 1 },
-            { id: 6, type: "P2_1_TOP_EMOJI", width: 1 },
-        ],
-        layout: LAYOUT_TYPES[4],
-        theme: ALL_THEMES.find(x => x.id === 'PASTEL_PINK')
-    },
-    {
-        id: 'P3_3',
-        name: '3x4',
-        items: [
-            { id: 1, type: "P2_2_ILY", width: 1 },
-            { id: 2, type: "P2_1_LAUGH_COUNT", width: 1 },
-            { id: 3, type: "P2_2_TIMELINE", width: 2 },
-            { id: 4, type: "P2_1_MOST_FREQUENT_WORDS", width: 1 },
-            { id: 5, type: "P2_1_MSG", width: 1 },
-            { id: 6, type: "P2_1_TOP_EMOJI", width: 1 },
-            { id: 7, type: "P2_1_GM_TIME", width: 1 },
-            { id: 8, type: "P2_1_GN_TIME", width: 1 },
-            { id: 9, type: "P2_1_TIME_DAY", width: 1 },
+            { id: 1, type: "PL_1_TOTAL_HEART", width: 1 },
+            { id: 2, type: "PL_1_RESPONSE_TIME", width: 1 },
+            { id: 3, type: "PL_2_FIRST_MESSAGE", width: 2 },
 
         ],
+        layout: LAYOUT_TYPES[2],
+        theme: ALL_THEMES.find(x => x.id === 'PASTEL_LAVANDA'),
+        image: new URL('/public/poster/examples/eternalove-example-pastel-lavanda-2-2.jpg', import.meta.url).href
+    },
+
+
+
+
+    // {
+    //     id: 'PL3_4',
+    //     name: '3x4',
+    //     items: [
+    //         { id: 1, type: "C_1_DOUBLE_TEXT", width: 2 },
+    //     ],
+    //     layout: LAYOUT_TYPES[5],
+    //     theme: ALL_THEMES.find(x => x.id === 'PASTEL_LAVANDA'),
+    //     image: new URL('/public/poster/examples/eternalove-example-pastel-lavanda-3-4.jpg', import.meta.url).href
+    // },
+    {
+        id: 'PL3_3',
+        name: 'Pastel 3x3',
+        items: [
+            { id: 1, type: "PL_1_EMOJI", width: 1 },
+            { id: 2, type: "PL_1_WORDS", width: 1 },
+            { id: 3, type: "PL_1_TOTAL_HEART", width: 1 },
+            { id: 4, type: "PL_1_HOURS_CHART", width: 1 },
+            { id: 5, type: "PL_2_WEEK_PIE", width: 2 },
+            { id: 6, type: "PL_1_GM_TABLE", width: 1 },
+            { id: 7, type: "PL_1_LAUGH", width: 1 },
+            { id: 8, type: "PL_1_GN_TABLE", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[4],
+        theme: ALL_THEMES.find(x => x.id === 'PASTEL_LAVANDA'),
+        image: new URL('/public/poster/examples/eternalove-example-pastel-lavanda-3-3.jpg', import.meta.url).href
+    },
+    {
+        id: 'PL2_3',
+        name: 'Pastel 2x3',
+        items: [
+            { id: 1, type: "PL_1_TOTAL_BAR", width: 1 },
+            { id: 2, type: "PL_1_SENT_IMAGE", width: 1 },
+            { id: 3, type: "PL_2_ILY", width: 2 },
+            { id: 4, type: "PL_2_TIMELINE", width: 2 },
+            { id: 5, type: "PL_1_WORDS", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[3],
+        theme: ALL_THEMES.find(x => x.id === 'PASTEL_LAVANDA'),
+        image: new URL('/public/poster/examples/eternalove-example-pastel-lavanda-2-3.jpg', import.meta.url).href
+    },
+    // {
+    //     id: 'PL2_2',
+    //     name: '3x4',
+    //     items: [
+    //         { id: 1, type: "C_1_DOUBLE_TEXT", width: 2 },
+    //     ],
+    //     layout: LAYOUT_TYPES[2],
+    //     theme: ALL_THEMES.find(x => x.id === 'PASTEL_LAVANDA'),
+    //     image: new URL('/public/poster/examples/eternalove-example-pastel-lavanda-2-2.jpg', import.meta.url).href
+    // },
+    {
+        id: 'PL1_2',
+        name: 'Pastel 1x2',
+        items: [
+            { id: 1, type: "PL_1_TOTAL_BAR", width: 1 },
+            { id: 2, type: "PL_1_WORDS", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[1],
+        theme: ALL_THEMES.find(x => x.id === 'PASTEL_LAVANDA'),
+        image: new URL('/public/poster/examples/eternalove-example-pastel-lavanda-1-2.jpg', import.meta.url).href
+    },
+
+    {
+        id: 'M3_4',
+        name: 'Modern 3x4',
+        items: [
+            { id: 1, type: "M_1_ILY", width: 1 },
+            { id: 2, type: "M_1_TOTAL_HEART", width: 1 },
+            { id: 3, type: "M_1_WORDS", width: 1 },
+            { id: 4, type: "M_1_GM_TABLE", width: 1 },
+            { id: 5, type: "M_2_TIMELINE", width: 2 },
+            { id: 6, type: "M_2_GMGN_CHART", width: 2 },
+            { id: 7, type: "M_1_EMOJI", width: 1 },
+            { id: 8, type: "M_1_LAUGH", width: 1 },
+            { id: 9, type: "M_1_FIRST_MESSAGE", width: 1 },
+            { id: 10, type: "M_1_TIME_SPENT", width: 1 },
+        ],
         layout: LAYOUT_TYPES[5],
-        theme: ALL_THEMES.find(x => x.id === 'PASTEL_PINK')
-    }
+        theme: ALL_THEMES.find(x => x.id === 'MODERN'),
+        image: new URL('/public/poster/examples/eternalove-example-modern-3-4.jpg', import.meta.url).href
+    },
+    {
+        id: 'M3_3',
+        name: 'Modern 3x3',
+        items: [
+            { id: 1, type: "M_2_TIMELINE", width: 2 },
+            { id: 2, type: "M_1_VOICE", width: 1 },
+            { id: 3, type: "M_1_GM_TABLE", width: 1 },
+            { id: 4, type: "M_1_TOTAL_BAR", width: 1 },
+            { id: 5, type: "M_1_GN_TABLE", width: 1 },
+            { id: 6, type: "M_1_LAUGH", width: 1 },
+            { id: 7, type: "M_2_WEEK_BAR", width: 2 },
+        ],
+        layout: LAYOUT_TYPES[4],
+        theme: ALL_THEMES.find(x => x.id === 'MODERN'),
+        image: new URL('/public/poster/examples/eternalove-example-modern-3-3.jpg', import.meta.url).href
+    },
+    // {
+    //     id: 'M2_3',
+    //     name: '3x4',
+    //     items: [
+    //         { id: 1, type: "C_1_DOUBLE_TEXT", width: 2 },
+    //     ],
+    //     layout: LAYOUT_TYPES[3],
+    //     theme: ALL_THEMES.find(x => x.id === 'MODERN'),
+    //     image: new URL('/public/poster/examples/eternalove-example-modern-2-3.jpg', import.meta.url).href
+    // },
+    {
+        id: 'M2_2',
+        name: 'Modern 2x2',
+        items: [
+            { id: 1, type: "M_1_TIME_SPENT", width: 1 },
+            { id: 2, type: "M_1_GN_TABLE", width: 1 },
+            { id: 3, type: "M_1_LAUGH", width: 1 },
+            { id: 4, type: "M_1_WORDS", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[2],
+        theme: ALL_THEMES.find(x => x.id === 'MODERN'),
+        image: new URL('/public/poster/examples/eternalove-example-modern-2-2.jpg', import.meta.url).href
+    },
+    {
+        id: 'M1_2',
+        name: 'Modern 1x2',
+        items: [
+            { id: 1, type: "M_1_ILY", width: 1 },
+            { id: 2, type: "M_1_FIRST_MESSAGE", width: 1 },
+
+        ],
+        layout: LAYOUT_TYPES[1],
+        theme: ALL_THEMES.find(x => x.id === 'MODERN'),
+        image: new URL('/public/poster/examples/eternalove-example-modern-1-2.jpg', import.meta.url).href
+    },
+
+    // Cute
+    {
+        id: 'C3_4',
+        name: 'Cute 3x4',
+        items: [
+            { id: 1, type: "C_1_TOTAL_PIE", width: 1 },
+            { id: 2, type: "C_1_FIRST_MESSAGE", width: 1 },
+            { id: 3, type: "C_1_ILY", width: 1 },
+            { id: 4, type: "C_2_WEEK_PIE", width: 2 },
+            { id: 5, type: "C_1_LAUGH", width: 1 },
+            { id: 6, type: "C_1_HOURS_CHART", width: 1 },
+            { id: 7, type: "C_1_RESPONSE_TIME", width: 1 },
+            { id: 8, type: "C_1_SENT_TIKTOK", width: 1 },
+            { id: 9, type: "C_2_TIMELINE", width: 2 },
+            { id: 10, type: "C_1_EMOJI", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[5],
+        theme: ALL_THEMES.find(x => x.id === 'CUTE'),
+        image: new URL('/public/poster/examples/eternalove-example-cute-3-4.jpg', import.meta.url).href
+    },
+    // {
+    //     id: 'C3_3',
+    //     name: '3x4',
+    //     items: [
+    //         { id: 1, type: "C_1_DOUBLE_TEXT", width: 2 },
+    //     ],
+    //     layout: LAYOUT_TYPES[4],
+    //     theme: ALL_THEMES.find(x => x.id === 'CUTE'),
+    //     image: new URL('/public/poster/examples/eternalove-example-cute-3-3.jpg', import.meta.url).href
+    // },
+    {
+        id: 'C2_3',
+        name: 'Cute 2x3',
+        items: [
+            { id: 1, type: "C_1_LAUGH", width: 1 },
+            { id: 2, type: "C_1_SENT_MEDIA2", width: 1 },
+            { id: 3, type: "C_2_TIMELINE", width: 2 },
+            { id: 4, type: "C_1_VOICE", width: 1 },
+            { id: 5, type: "C_1_FIRST_MESSAGE", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[3],
+        theme: ALL_THEMES.find(x => x.id === 'CUTE'),
+        image: new URL('/public/poster/examples/eternalove-example-cute-2-3.jpg', import.meta.url).href
+    },
+    {
+        id: 'C2_2',
+        name: 'Cute 2x2',
+        items: [
+            { id: 1, type: "C_1_ILY", width: 1 },
+            { id: 2, type: "C_1_TOTAL_PIE", width: 1 },
+            { id: 3, type: "C_1_GMGN_TABLE", width: 1 },
+            { id: 4, type: "C_1_VOICE", width: 1 },
+        ],
+        layout: LAYOUT_TYPES[2],
+        theme: ALL_THEMES.find(x => x.id === 'CUTE'),
+        image: new URL('/public/poster/examples/eternalove-example-cute-2-2.jpg', import.meta.url).href
+    },
+    {
+        id: 'C1_2',
+        name: 'Cute 1x2',
+        items: [
+            { id: 1, type: "C_1_FIRST_MESSAGE", width: 2 },
+            { id: 2, type: "C_1_TIME_SPENT", width: 2 },
+        ],
+        layout: LAYOUT_TYPES[1],
+        theme: ALL_THEMES.find(x => x.id === 'CUTE'),
+        image: new URL('/public/poster/examples/eternalove-example-cute-1-2.jpg', import.meta.url).href
+    },
+
+
 ]
 
 
