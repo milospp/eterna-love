@@ -1,10 +1,16 @@
 <template>
     <div>
-        <h1 class=" text-3xl text-white font-light mb-8 text-center">
-            <template v-if="siteStore.hasAnyResult">Možete dodati više chatova</template>
-            <template v-else>Odaberite društvenu mrežu</template>
 
-        </h1>
+        <div class="mb-8 text-white text-center">
+            <template v-if="siteStore.hasAnyResult">
+                <h1 class=" text-3xl font-light ">Možete dodati više chatova</h1>
+            </template>
+            <template v-else>
+                <h1 class=" text-3xl font-light mb-4">Odaberite društvenu mrežu</h1>
+                <p>Sada morate preuziti chat koji želite da analizirate</p>
+            </template>
+        </div>
+
 
         <div class="flex items-center justify-center gap-4">
             <div v-for="social in socials" @click="onSelectedSocial(social)">
@@ -18,6 +24,18 @@
                 </label>
             </div>
         </div>
+
+        <!-- <div>
+            <div v-for="platform in platforms" @click="onSelectedSocial(social)">
+                <input type="radio" name="layout" :id="'layout_' + platform" class="peer hidden"
+                    :checked="selectedPlatform == platform" :value="platform">
+                <label :for="'layout_' + platform" class="cursor-pointer">
+                    <div class="peer-checked:p-5">
+                        <WizardButtonPlatform :platformName="platform" :active="selectedPlatform == platform" />
+                    </div>
+                </label>
+            </div>
+        </div> -->
 
 
         <div class="mb-32">
@@ -90,10 +108,9 @@
 
         <div v-if="!siteStore.hasAnyResult" class="grid grid-cols-1 sm:grid-cols-2 mt-10 gap-20 sm:gap-8">
             <div class="flex flex-col items-center justify-center w-full">
-                <span class="text-white mt-2">Video uputstvo</span>
                 <div data-vjs-player class="h-full">
                     <video ref="videoTutorial" controls class="video-js w-full h-auto aspect-video border-white mt-2"
-                        poster="https://cdna.artstation.com/p/assets/images/images/027/991/786/large/craig-peacock-tutorial-wallpaper.jpg?1593165601">
+                        poster="/public/tutorial/general/eternalove-tutorial-cover.png">
                         <!-- <source src="https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_5mb.mp4"
                         type="video/mp4"> -->
                     </video>
@@ -104,9 +121,11 @@
             <div class="flex flex-col items-center justify-center p-5">
                 <img class="w-2/3 sm:w-auto sm:p-8" src="/public/images/upload-scheme-eterna-love-chat.svg"
                     alt="Chats are not shared with us. All processing is on your computer" />
-                <span class="text-slate-100 px-4 md:px-6 sm:px-10 mt-4 font-thin">Statistika se računa na vašem uređaju,
+                <span class="text-slate-100 px-4 md:px-6 sm:px-10 mt-4 font-thin text-center">Statistika se računa na
+                    vašem
+                    uređaju,
                     mi dobijamo samo podatke za grafike.</span>
-                <span class="text-slate-100 mt-4">Pročitaj više.</span>
+                <!-- <span class="text-slate-100 mt-4">Pročitaj više.</span> -->
             </div>
         </div>
 
@@ -129,10 +148,15 @@ const minimisedTutorialSlides = ref(true);
 
 
 
-const socials: SocialNetworkType[] = ['instagram', 'facebook', 'whatsapp', 'telegram'];
+// const socials: SocialNetworkType[] = ['instagram', 'facebook', 'whatsapp', 'telegram'];
+const socials: SocialNetworkType[] = ['instagram', 'facebook', 'whatsapp'];
+
+const platforms: PlatformType[] = ['pc', 'phone'];
+
 
 // const selectedSocial = ref(socials[0]);
 const selectedSocial: Ref<SocialNetworkType | null> = ref(null);
+const selectedPlatform: Ref<PlatformType | null> = ref('phone');
 const tutorialTitle = ref('')
 
 const player = ref()
@@ -157,7 +181,7 @@ onMounted(() => {
         sources: [
             {
                 src:
-                    'https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_5mb.mp4',
+                    new URL('/public/tutorial/general/eternalove-phone-tutorial-all.mp4', import.meta.url).href,
                 type: 'video/mp4'
             }
         ]

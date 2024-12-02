@@ -56,6 +56,10 @@ const emit = defineEmits<{
 
 
 const tutorialSlides: ComputedRef<TutorialStep[]> = computed(() => {
+    let defaultSlides = TUTORIAL_SLIDES[props.social]['default']
+    if (TUTORIAL_SLIDES[props.social].phone_sr != undefined)
+        return TUTORIAL_SLIDES[props.social].phone_sr || defaultSlides
+
     return TUTORIAL_SLIDES[props.social]['default']
 })
 

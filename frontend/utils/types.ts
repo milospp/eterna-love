@@ -153,6 +153,7 @@ export type ItemTypeId =
     ;
 
 export type SocialNetworkType = 'facebook' | 'instagram' | 'whatsapp' | 'telegram';
+export type PlatformType = 'pc' | 'phone';
 
 export type PhraseCountKeys = 'morningCount' | 'nightCount';
 export type PhraseListKeys = 'phraseList' | 'nightList' | 'morningList';
@@ -250,7 +251,7 @@ export type TutorialStep = {
     image: string;
 };
 
-export type TutorialVariation = 'pc_en' | 'sr' | 'default';
+export type TutorialVariation = 'pc_en' | 'sr' | 'default' | 'phone_sr';
 
 export type Tutorial = {
     [key in SocialNetworkType]: {
