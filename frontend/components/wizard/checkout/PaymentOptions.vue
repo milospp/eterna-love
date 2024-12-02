@@ -67,7 +67,23 @@ const paymentOptions = computed(() => {
 })
 
 
+function placeOrder() {
+    let payload = getCheckoutData(siteStore);
+    apiPostOrder(payload)
+        .then(data => {
+            if (data.status === 201) {
+                console.log('Success:', data);
 
+            } else {
+                alert("Neuspeno slanje podataka")
+            }
+        })
+        .catch((error) => {
+            alert("Neuspeno slanje podataka, problem sa serverom")
+            console.error('Error:', error);
+        })
+
+}
 
 onMounted(() => {
 
@@ -76,9 +92,8 @@ onMounted(() => {
         style: {
             borderRadius: 5,
         },
-        createOrder: (data, actions) => {
-            // prompt("JEL MOZEEE")
 
+        createOrder: async (data, actions) => {
             let items: any[] = siteStore.cartItems.filter(x => !x.hidden && x.type == 'ITEM').map(x => {
                 return {
                     name: x.title,
@@ -103,32 +118,47 @@ onMounted(() => {
                 shipping = {
                     type: "SHIPPING",
                     address: {
-                        address_line_1: addressLocation.street + ' ' + addressLocation.streetNumber,
+                        address_line_1: addressLocation.street.value + ' ' + addressLocation.streetNumber.value,
                         address_line_2: '',
                         admin_area_2: '',
-                        admin_area_1: addressLocation.city,
-                        postal_code: addressLocation.zip,
+                        admin_area_1: addressLocation.city.value,
+                        postal_code: addressLocation.zip.value,
                         country_code: 'RS'
                     }
                 }
             }
 
-            console.log(shipping);
-            console.log(items);
-            let itemTotal = siteStore.cartItems.filter(x => x.type == 'ITEM').reduce((total, item) => total + rsdToEur(item.price) * item.quantity, 0)
-            let shippingTotal = siteStore.cartItems.filter(x => x.type == 'SHIPPING').reduce((total, item) => total + rsdToEur(item.price) * item.quantity, 0)
-            console.log((itemTotal + shippingTotal).toString());
-            console.log((itemTotal).toString());
-            console.log((shippingTotal).toString());
+
+            let itemTotal = roundToTwoDecimal(siteStore.cartItems.filter(x => x.type == 'ITEM').reduce((total, item) => total + rsdToEur(item.price) * item.quantity, 0))
+            let shippingTotal = roundToTwoDecimal(siteStore.cartItems.filter(x => x.type == 'SHIPPING').reduce((total, item) => total + rsdToEur(item.price) * item.quantity, 0))
+
+            let payload = getCheckoutData(siteStore);
+            payload.payment_method = 'PAYPAL'
+
+            let orderResult;
+            try {
+                orderResult = await apiPostOrder(payload);
+            } catch (error) {
+                alert("Neuspeno slanje podataka, problem sa serverom");
+                console.error('Error:', error);
+                throw error; // Re-throw the error to prevent further execution
+            }
+            if (orderResult.status != 201) {
+                alert("Greskaa")
+                return
+            }
+            let orderData = await orderResult.json();
+            let invoiceId = orderData.invoice_id;
 
 
             return actions.order.create({
+
                 purchase_units: [
                     {
-                        // invoice_id: "Invoice-Poster-#",
+                        invoice_id: invoiceId,
                         // reference_id: "POSTER-12",
                         amount: {
-                            value: (itemTotal + shippingTotal).toString(),
+                            value: (roundToTwoDecimal(itemTotal + shippingTotal)).toString(),
                             'breakdown': {
                                 'item_total': {
                                     'currency_code': 'EUR',
@@ -153,18 +183,18 @@ onMounted(() => {
                                 // },
                             }
                         },
-                        shipping: {
-                            type: "SHIPPING",
-                            address: {
-                                address_line_1: 'bulevar',
-                                address_line_2: 'dom b',
-                                admin_area_2: 'San Francisco',
-                                admin_area_1: 'CA',
-                                postal_code: '21000',
-                                country_code: 'RS'
-                            }
-                        },
-                        // shipping: shipping,
+                        // shipping: {
+                        //     type: "SHIPPING",
+                        //     address: {
+                        //         address_line_1: 'bulevar',
+                        //         address_line_2: 'dom b',
+                        //         admin_area_2: 'San Francisco',
+                        //         admin_area_1: 'CA',
+                        //         postal_code: '21000',
+                        //         country_code: 'RS'
+                        //     }
+                        // },
+                        shipping: shipping,
                         items: items
 
                     },
@@ -228,26 +258,28 @@ onMounted(() => {
                     // },
                     tenant: '',
                     name: {
-                        given_name: "Firstname",
-                        surname: "Lastname"
+                        given_name: siteStore.checkout.contactInfo.fullname.value?.split(" ")[0] || '',
+                        surname: siteStore.checkout.contactInfo.fullname.value?.split(" ").slice(1).join(" ") || ''
                     },
-                    email_address: "payer@example.com",
+                    email_address: siteStore.checkout.contactInfo.email.value || '',
                     phone: {
                         phone_type: "MOBILE",
                         phone_number: {
-                            national_number: "381631453860"
+                            national_number: siteStore.checkout.contactInfo.phone.value || ''
                         }
                     },
                     address: {
-                        address_line_1: '123 Main St',
-                        address_line_2: 'Apt 4B',
-                        admin_area_2: 'San Francisco',
-                        admin_area_1: 'CA',
-                        postal_code: '21000',
+                        address_line_1: siteStore.checkout.contactInfo.street.value + ' ' + siteStore.checkout.contactInfo.streetNumber.value,
+                        address_line_2: '',
+                        admin_area_1: siteStore.checkout.contactInfo.city.value,
+                        admin_area_2: '',
+                        postal_code: siteStore.checkout.contactInfo.zip.value,
                         country_code: 'RS'
                     }
                 },
             });
+
+
         },
         // onClick: async (data, actions) => {
         //     // Perform any necessary actions before creating the order
@@ -268,7 +300,9 @@ onMounted(() => {
             try {
                 const details = await actions.order?.capture();
                 console.log('Payment completed successfully:', details);
+                siteStore.checkout.isOrderPlaced = true
             } catch (error) {
+                alert("neuspesno placanje")
                 console.error('Error capturing payment:', error);
             }
         },

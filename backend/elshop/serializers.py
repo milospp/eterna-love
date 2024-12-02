@@ -5,11 +5,10 @@ from .models import Order, CartItem, PosterItem, ContactData
 
 
 def generate_invoice_id():
-    return 6
-    # last_order = Order.objects.all().order_by('id').last()
-    # last_id = last_order.id
-    # new_invoice_id = f'EL-{last_id:04d}'
-    # return new_invoice_id
+    last_order = Order.objects.all().order_by('id').last()
+    last_id = last_order.id
+    new_invoice_id = f'EL-{last_id:04d}'
+    return new_invoice_id
 
 
 class ContactDataSerializer(serializers.ModelSerializer):

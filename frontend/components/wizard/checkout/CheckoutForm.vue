@@ -87,75 +87,12 @@ const shippingAdressCompleted = computed(() => {
     return !showShipAddressForm.value && !showContact.value
 })
 
-function getCheckoutData() {
-    let data = {
-        shipping_info_form: siteStore.checkout.shippingInfoForm,
-        payment_method: siteStore.checkout.paymentInfo.paymentMethod.value,
-        status: "DRAFT", // FIX
-        is_order_placed: true,
-        description: "",
-        data: null,
-        contact_info: {
-            fullname: siteStore.checkout.contactInfo.fullname.value,
-            email: siteStore.checkout.contactInfo.email.value,
-            phone: siteStore.checkout.contactInfo.phone.value,
-            street: siteStore.checkout.contactInfo.street.value,
-            streetNumber: siteStore.checkout.contactInfo.streetNumber.value,
-            city: siteStore.checkout.contactInfo.city.value,
-            zip: siteStore.checkout.contactInfo.zip.value,
-            country: siteStore.checkout.contactInfo.country.value
-        },
-        cart_items: []
-
-    }
-
-    if (siteStore.checkout.shippingInfoForm == 'DIFFERENT') {
-        data["shipping_info"] = {
-            fullname: siteStore.checkout.shippingInfo.fullname.value,
-            email: siteStore.checkout.shippingInfo.email.value,
-            phone: siteStore.checkout.shippingInfo.phone.value,
-            street: siteStore.checkout.shippingInfo.street.value,
-            streetNumber: siteStore.checkout.shippingInfo.streetNumber.value,
-            city: siteStore.checkout.shippingInfo.city.value,
-            zip: siteStore.checkout.shippingInfo.zip.value,
-            country: siteStore.checkout.shippingInfo.country.value
-        }
-    }
-
-    let cart_item =
-    {
-        poster_items: siteStore.posterItems.filter(x => x.type != null && x.width != 0).map(x => { return { poster_item_type: x.type } }),
-        reference_id: "item-1",
-        item_name: "Poster",
-        person_1: siteStore.posterName1,
-        person_2: siteStore.posterName2,
-        poster_layout: siteStore.posterEdit.layout?.id,
-        quantity: 1,
-        poster_format: siteStore.posterConfig.format?.id,
-        poster_paper_type: siteStore.posterConfig.paperType?.id,
-        poster_frame: siteStore.posterConfig.frame?.id,
-        results: siteStore.chatResults
-    }
-    data.cart_items.push(cart_item)
-
-    return data
-}
 
 function placeOrder() {
     isLoading.value = true;
 
-    let payload = getCheckoutData();
-    // let url = 'http://localhost:8000/api/eterna/items2/'
-
-    // let url = 'https://admin.myeterna.love/api/eterna/items2/'
-    let url = runtimeConfig.public.apiBase + '/eterna/items2/'
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    })
+    let payload = getCheckoutData(siteStore);
+    apiPostOrder(payload)
         .then(data => {
             if (data.status === 201) {
                 console.log('Success:', data);
