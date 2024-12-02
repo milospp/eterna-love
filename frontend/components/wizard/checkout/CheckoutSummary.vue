@@ -9,7 +9,7 @@
         </div>
 
         <div class=" space-y-4">
-            <div class="flex" v-for="cartItem in calculateCart()">
+            <div class="flex" v-for="cartItem in siteStore.cartItems">
                 <span class="text-neutral-800">{{ cartItem.title }}</span>
                 <span v-if="cartItem.price" class="ml-auto text-neutral-800">{{ cartItem.price }} RSD</span>
                 <span v-else class="ml-auto text-neutral-800">Besplatno</span>
@@ -22,6 +22,9 @@
                 <span class="text-neutral-800 ml-auto">{{ totalPrice }} RSD</span>
             </div>
         </div>
+        <pre>
+            {{ siteStore.cartItems }}
+        </pre>
 
 
     </div>
@@ -41,7 +44,9 @@ const framePrice = computed(() => siteStore.posterConfig.frame?.price)
 const deliveryPrice = 300
 
 const totalPrice = computed(() => {
-    return calculateCart().reduce((acc, item) => acc + (item.price || 0) * item.quantity, 0)
+    updatePrice()
+
+    return siteStore.cartItems.reduce((acc, item) => acc + (item.price || 0) * item.quantity, 0)
 })
 
 // const cart = computed(() => calculateCart())
@@ -53,52 +58,6 @@ function updatePrice() {
     }
 }
 
-function calculateCart() {
-    updatePrice()
-
-    let cart: Cart[] = []
-    if (!siteStore.posterEdit.layout) return cart
-
-    cart.push({
-        title: 'Poster ' + siteStore.posterEdit.layout.dimX + 'x' + siteStore.posterEdit.layout.dimY,
-        price: siteStore.posterEdit.layout.initPrice,
-        quantity: 1
-    })
-
-    if (siteStore.posterConfig.format) {
-        cart.push({
-            title: siteStore.posterConfig.format.name,
-            price: siteStore.posterConfig.format.price,
-            quantity: 1
-        })
-    }
-
-    if (siteStore.posterConfig.paperType?.id == 'GLOSSY') {
-        cart.push({
-            title: 'Sjajni papir',
-            price: siteStore.posterConfig.paperType.price,
-            quantity: 1
-        })
-    }
-
-    if (siteStore.posterConfig.frame && siteStore.posterConfig.frame.id != 'NO') {
-        cart.push({
-            title: 'Ram za sliku',
-            price: siteStore.posterConfig.frame.price,
-            quantity: 1
-        })
-    }
-
-    if (siteStore.posterConfig.format && !siteStore.posterConfig.format.digital) {
-        cart.push({
-            title: 'Dostava',
-            price: deliveryPrice,
-            quantity: 1
-        })
-    }
-
-    return cart
-}
 </script>
 
 <style></style>

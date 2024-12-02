@@ -1,5 +1,7 @@
 import type { PosterFrameOption } from "./types";
 
+export const DELIVERY_PRICE = 300
+
 export const LAYOUT_TYPES: CardLayoutType[] = [
     {
         id: '1_1',

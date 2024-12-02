@@ -294,6 +294,7 @@ export type PosterFrameOption = {
 
 export type Cart = {
     title: string;
+    type: 'ITEM' | 'SHIPPING'
     quantity: number;
     price: number;
     hidden?: boolean

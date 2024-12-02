@@ -181,7 +181,58 @@ export const useSiteStore = defineStore('site', {
         },
         isPosterDigital(state): boolean {
             return state.posterConfig.format?.digital === true
+        },
+        cartItems(state): Cart[] {
+            let cart: Cart[] = []
+            if (!state.posterEdit.layout) return cart
+
+            cart.push({
+                title: 'Poster ' + state.posterEdit.layout.dimX + 'x' + state.posterEdit.layout.dimY,
+                type: 'ITEM',
+                price: state.posterEdit.layout.initPrice,
+                quantity: 1
+            })
+
+            if (state.posterConfig.format) {
+                cart.push({
+                    title: state.posterConfig.format.name,
+                    type: 'ITEM',
+                    price: state.posterConfig.format.price,
+                    quantity: 1
+                })
+            }
+
+            if (state.posterConfig.paperType?.id == 'GLOSSY') {
+                cart.push({
+                    title: 'Sjajni papir',
+                    type: 'ITEM',
+                    price: state.posterConfig.paperType.price,
+                    quantity: 1
+                })
+            }
+
+            if (state.posterConfig.frame && state.posterConfig.frame.id != 'NO') {
+                cart.push({
+                    title: 'Ram za sliku',
+                    type: 'ITEM',
+                    price: state.posterConfig.frame.price,
+                    quantity: 1
+                })
+            }
+
+            if (state.posterConfig.format && !state.posterConfig.format.digital) {
+                cart.push({
+                    title: 'Dostava',
+                    type: 'SHIPPING',
+                    price: DELIVERY_PRICE,
+                    quantity: 1
+                })
+            }
+
+
+            return cart
         }
+
     },
     actions: {
         setSiteName(name: string) {

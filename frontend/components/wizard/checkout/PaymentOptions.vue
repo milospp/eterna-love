@@ -79,41 +79,84 @@ onMounted(() => {
         createOrder: (data, actions) => {
             // prompt("JEL MOZEEE")
 
+            let items: any[] = siteStore.cartItems.filter(x => !x.hidden && x.type == 'ITEM').map(x => {
+                return {
+                    name: x.title,
+                    unit_amount: {
+                        currency_code: "EUR",
+                        value: rsdToEur(x.price),
+                    },
+
+                    description: x.title,
+                    quantity: x.quantity
+                }
+            })
+
+            let addressLocation = siteStore.checkout.contactInfo
+            if (siteStore.checkout.shippingInfoForm == 'SAME') {
+                addressLocation = siteStore.checkout.shippingInfo
+            }
+
+            let shipping = undefined
+
+            if (siteStore.isPosterFormatPaper) {
+                shipping = {
+                    type: "SHIPPING",
+                    address: {
+                        address_line_1: addressLocation.street + ' ' + addressLocation.streetNumber,
+                        address_line_2: '',
+                        admin_area_2: '',
+                        admin_area_1: addressLocation.city,
+                        postal_code: addressLocation.zip,
+                        country_code: 'RS'
+                    }
+                }
+            }
+
+            console.log(shipping);
+            console.log(items);
+            let itemTotal = siteStore.cartItems.filter(x => x.type == 'ITEM').reduce((total, item) => total + rsdToEur(item.price) * item.quantity, 0)
+            let shippingTotal = siteStore.cartItems.filter(x => x.type == 'SHIPPING').reduce((total, item) => total + rsdToEur(item.price) * item.quantity, 0)
+            console.log((itemTotal + shippingTotal).toString());
+            console.log((itemTotal).toString());
+            console.log((shippingTotal).toString());
+
+
             return actions.order.create({
                 purchase_units: [
                     {
                         // invoice_id: "Invoice-Poster-#",
                         // reference_id: "POSTER-12",
                         amount: {
-                            value: '31',
+                            value: (itemTotal + shippingTotal).toString(),
                             'breakdown': {
                                 'item_total': {
                                     'currency_code': 'EUR',
-                                    'value': '25'
+                                    'value': (itemTotal).toString()
+                                    // 'value': itemTotal.toString()
                                 },
                                 'shipping': {
                                     'currency_code': 'EUR',
-                                    'value': '3'
+                                    'value': shippingTotal.toString()
                                 },
-                                'tax_total': {
-                                    'currency_code': 'EUR',
-                                    'value': '5'
-                                },
-                                'discount': {
-                                    'currency_code': 'EUR',
-                                    'value': '2'
-                                },
-                                'shipping_discount': {
-                                    'currency_code': 'EUR',
-                                    'value': '0'
-                                },
-
+                                // 'tax_total': {
+                                //     'currency_code': 'EUR',
+                                //     'value': '5'
+                                // },
+                                // 'discount': {
+                                //     'currency_code': 'EUR',
+                                //     'value': '2'
+                                // },
+                                // 'shipping_discount': {
+                                //     'currency_code': 'EUR',
+                                //     'value': '0'
+                                // },
                             }
                         },
                         shipping: {
                             type: "SHIPPING",
                             address: {
-                                address_line_1: 'Bulevar depsota Stefana 7',
+                                address_line_1: 'bulevar',
                                 address_line_2: 'dom b',
                                 admin_area_2: 'San Francisco',
                                 admin_area_1: 'CA',
@@ -121,28 +164,8 @@ onMounted(() => {
                                 country_code: 'RS'
                             }
                         },
-                        items: [
-                            {
-                                name: "Poster",
-                                unit_amount: {
-                                    currency_code: "EUR",
-                                    value: '20',
-                                },
-                                description: "Poster A4",
-                                quantity: '1'
-
-                            },
-                            {
-                                name: "Ram",
-                                unit_amount: {
-                                    currency_code: "EUR",
-                                    value: '5',
-                                },
-                                description: "Drveni ram za sliku",
-                                quantity: '1'
-
-                            }
-                        ]
+                        // shipping: shipping,
+                        items: items
 
                     },
 
@@ -190,7 +213,7 @@ onMounted(() => {
                         experience_context: {
                             // user_action: 'CONTINUE',
                             brand_name: "ETERNA LOVE",
-                            shipping_preference: "SET_PROVIDED_ADDRESS",
+                            shipping_preference: shipping ? "SET_PROVIDED_ADDRESS" : "NO_SHIPPING",
                         }
                     }
                 },

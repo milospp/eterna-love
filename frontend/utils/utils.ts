@@ -70,3 +70,12 @@ export function getAvaialbleFrames(format?: PosterFormatOption) {
     }
     return []
 }
+
+
+export function rsdToEur(value: number) {
+    return parseFloat((value / 118).toFixed(2));
+}
+
+export function eurToRsd(value: number) {
+    return parseFloat((value * 118).toFixed(2));
+}
