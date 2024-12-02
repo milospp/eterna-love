@@ -63,7 +63,7 @@ export default defineNuxtConfig({
     },
 
     gtag: {
-        id: 'G-3J4LQ8C1K8',
+        id: 'G-WFVP14ESHH',
         config: {
             page_title: 'Eterna Love Page'
         },
