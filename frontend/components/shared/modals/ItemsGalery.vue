@@ -3,9 +3,10 @@
         <div v-for="(items, groupId) in groupedItems">
             <p class=" text-slate-500 text-xl font-thin mb-4">{{ groupId }}</p>
 
-            <div class="grid grid-cols-4 gap-3 pb-8">
-                <WizardCanvasItem @click="emit('confirm', item.type_id)" v-for="item in items" :type="item.type_id"
-                    location="MODAL_GALERY" />
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pb-8">
+                <WizardCanvasItem @click="emit('confirm', item)" v-for="item in items" :type="item.type_id"
+                    location="MODAL_GALERY" :col-span="item.width"
+                    :class="{ 'col-span-2': item.width == 2, 'col-span-3': item.width == 3, 'hidden': item.width === 0 }" />
             </div>
         </div>
 

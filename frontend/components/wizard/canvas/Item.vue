@@ -125,7 +125,7 @@ const { open: openGaleryModal, close } = useModal({
     component: ModalItemsGalery,
     attrs: {
         title: 'Odaberi komponentu',
-        onConfirm(itemType: string) {
+        onConfirm(itemType: ItemType) {
             updateItem(itemType)
             close()
         },
@@ -133,9 +133,16 @@ const { open: openGaleryModal, close } = useModal({
 
 })
 
-function updateItem(type: string) {
+function updateItem(newItem: ItemType) {
     const item = siteStore.posterItems.find(item => item.id == props.id)
-    if (item) item.type = type;
+    if (item) {
+        item.type = newItem.type_id;
+        item.width = newItem.width;
+
+        // TODO Remove next if width is > 1
+
+        siteStore.fixPosterItemSizing()
+    }
 }
 
 
