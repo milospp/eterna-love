@@ -39,6 +39,7 @@
 
             </TransitionGroup>
         </section>
+        <pre>{{ siteStore.posterItems }}</pre>
     </div>
 </template>
 
