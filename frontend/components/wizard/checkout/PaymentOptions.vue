@@ -77,7 +77,7 @@ onMounted(() => {
             borderRadius: 5,
         },
         createOrder: (data, actions) => {
-            prompt("JEL MOZEEE")
+            // prompt("JEL MOZEEE")
 
             return actions.order.create({
                 purchase_units: [
