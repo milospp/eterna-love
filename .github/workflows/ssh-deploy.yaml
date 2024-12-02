@@ -42,7 +42,8 @@ jobs:
 
             - name: Build project
               env:
-                  VUE_APP_API_URL: ${{ vars.VUE_APP_API_URL }}
+                  NUXT_PUBLIC_API_BASE: ${{ vars.BACKEND_API_BASE }}
+                  PAYPAL_CLIENT_ID: "production"
               working-directory: frontend # Folder u kome se nalazi npm projekat
               run: pnpm generate
 
