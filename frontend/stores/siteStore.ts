@@ -143,15 +143,15 @@ export const useSiteStore = defineStore('site', {
         },
 
         hasEmptyItems(state): boolean {
-            console.log("Checking empty items");
-            console.log(this.posterItems);
-            this.posterItems.forEach(item => {
-                console.log(item.type + " - " + item.width);
-            });
-            console.log("Finished - Checking empty items");
+            // console.log("Checking empty items");
+            // console.log(this.posterItems);
+            // this.posterItems.forEach(item => {
+            //     console.log(item.type + " - " + item.width);
+            // });
+            // console.log("Finished - Checking empty items");
 
 
-            return this.posterItems.some(x => x.type == undefined)
+            return this.posterItems.some(x => x.type == undefined && x.width > 0)
         },
 
         hasDuplicateItems(state): boolean {
