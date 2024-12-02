@@ -34,6 +34,7 @@
     "@nuxt/image": "^1.8.1",
     "@types/luxon": "^3.4.2",
     "@vue-final-modal/nuxt": "^1.0.3",
+    "nuxt-gtag": "^3.0.2",
     "nuxt-paypal": "0.0.1-beta",
     "sass": "^1.79.4",
     "video.js": "^8.19.1"

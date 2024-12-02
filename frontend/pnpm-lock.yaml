@@ -58,7 +58,7 @@ importers:
         version: 3.5.9(typescript@5.6.3)
       vue-final-modal:
         specifier: ^4.5.5
-        version: 4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(sortablejs@local_modules+SortableJS)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3))
+        version: 4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3))
       vue-router:
         specifier: latest
         version: 4.4.5(vue@3.5.9(typescript@5.6.3))
@@ -74,7 +74,10 @@ importers:
         version: 3.4.2
       '@vue-final-modal/nuxt':
         specifier: ^1.0.3
-        version: 1.0.3(magicast@0.3.5)(rollup@4.22.4)(vue-final-modal@4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(sortablejs@local_modules+SortableJS)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))
+        version: 1.0.3(magicast@0.3.5)(rollup@4.22.4)(vue-final-modal@4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))
+      nuxt-gtag:
+        specifier: ^3.0.2
+        version: 3.0.2(magicast@0.3.5)(rollup@4.22.4)
       nuxt-paypal:
         specifier: 0.0.1-beta
         version: 0.0.1-beta(magicast@0.3.5)(rollup@4.22.4)
@@ -3155,6 +3158,9 @@ packages:
     engines: {node: ^16.10.0 || >=18.0.0}
     hasBin: true
 
+  nuxt-gtag@3.0.2:
+    resolution: {integrity: sha512-0Spu/rffPxW7REebkjE22qQOuVZIQuyIuvd61InDdJU+d+gRIqWhrUuKBWdk43N/J1elj+cTK2kEdk5FQX7vdQ==}
+
   nuxt-paypal@0.0.1-beta:
     resolution: {integrity: sha512-d9ZCsRxs6kK5xXf5P67cHfipcnDo+sZJN++9tuttHfAXWrT/f+prtps7MiaqTc9JxPjwBDrUruDh5eSnTQVDTw==}
 
@@ -5949,10 +5955,10 @@ snapshots:
       vite: 5.4.8(@types/node@22.7.3)(sass@1.79.4)(terser@5.34.0)
       vue: 3.5.9(typescript@5.6.3)
 
-  '@vue-final-modal/nuxt@1.0.3(magicast@0.3.5)(rollup@4.22.4)(vue-final-modal@4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(sortablejs@local_modules+SortableJS)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))':
+  '@vue-final-modal/nuxt@1.0.3(magicast@0.3.5)(rollup@4.22.4)(vue-final-modal@4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))':
     dependencies:
       '@nuxt/kit': 3.13.2(magicast@0.3.5)(rollup@4.22.4)
-      vue-final-modal: 4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(sortablejs@local_modules+SortableJS)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3))
+      vue-final-modal: 4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3))
     transitivePeerDependencies:
       - magicast
       - rollup
@@ -6094,14 +6100,13 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
-  '@vueuse/integrations@11.1.0(focus-trap@7.6.0)(sortablejs@local_modules+SortableJS)(vue@3.5.9(typescript@5.6.3))':
+  '@vueuse/integrations@11.1.0(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3))':
     dependencies:
       '@vueuse/core': 11.1.0(vue@3.5.9(typescript@5.6.3))
       '@vueuse/shared': 11.1.0(vue@3.5.9(typescript@5.6.3))
       vue-demi: 0.14.10(vue@3.5.9(typescript@5.6.3))
     optionalDependencies:
       focus-trap: 7.6.0
-      sortablejs: link:local_modules/SortableJS
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -7926,6 +7931,18 @@ snapshots:
 
   nuxi@3.14.0: {}
 
+  nuxt-gtag@3.0.2(magicast@0.3.5)(rollup@4.22.4):
+    dependencies:
+      '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.22.4)
+      defu: 6.1.4
+      pathe: 1.1.2
+      ufo: 1.5.4
+    transitivePeerDependencies:
+      - magicast
+      - rollup
+      - supports-color
+      - webpack-sources
+
   nuxt-paypal@0.0.1-beta(magicast@0.3.5)(rollup@4.22.4):
     dependencies:
       '@nuxt/kit': 3.13.2(magicast@0.3.5)(rollup@4.22.4)
@@ -9320,10 +9337,10 @@ snapshots:
 
   vue-devtools-stub@0.1.0: {}
 
-  vue-final-modal@4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(sortablejs@local_modules+SortableJS)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)):
+  vue-final-modal@4.5.5(@vueuse/core@11.1.0(vue@3.5.9(typescript@5.6.3)))(@vueuse/integrations@11.1.0(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)))(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3)):
     dependencies:
       '@vueuse/core': 11.1.0(vue@3.5.9(typescript@5.6.3))
-      '@vueuse/integrations': 11.1.0(focus-trap@7.6.0)(sortablejs@local_modules+SortableJS)(vue@3.5.9(typescript@5.6.3))
+      '@vueuse/integrations': 11.1.0(focus-trap@7.6.0)(vue@3.5.9(typescript@5.6.3))
       focus-trap: 7.6.0
       vue: 3.5.9(typescript@5.6.3)
 

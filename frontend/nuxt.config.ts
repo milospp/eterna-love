@@ -26,7 +26,7 @@ export default defineNuxtConfig({
 
     ssr: false,
 
-    modules: ['@pinia/nuxt', '@vue-final-modal/nuxt', 'nuxt-paypal', '@nuxtjs/i18n'],
+    modules: ['@pinia/nuxt', '@vue-final-modal/nuxt', 'nuxt-paypal', '@nuxtjs/i18n', 'nuxt-gtag'],
 
 
     router: {
@@ -59,6 +59,13 @@ export default defineNuxtConfig({
                 maxInitialRequests: Infinity,
                 minSize: 20000,
             },
+        },
+    },
+
+    gtag: {
+        id: 'G-3J4LQ8C1K8',
+        config: {
+            page_title: 'Eterna Love Page'
         },
     }
 })
